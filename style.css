@@ -1,0 +1,32 @@
+body {
+  margin: 0;
+  background-color: black;
+  user-select: none;
+}
+
+canvas {
+  display: block;
+  width: 100vw;
+  height: 100vh;
+}
+
+#menuForm {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  margin: 100px auto 0 auto;
+  width: 500px;
+  font-size: 30px;
+}
+
+#nick, #color {
+  background-color: gray;
+  margin-bottom: 10px;
+  height: 30px;
+  font-size: 30px;
+}
+
+#menuButton {
+  background-color: #789;
+  cursor: pointer;
+}
