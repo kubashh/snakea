@@ -19,6 +19,16 @@ app.get("/", async (req, res) => {
   res.send(answer);
 });
 
+app.get("/board", async (req, res) => {
+  console.log(req);
+  const answer = JSON.stringify({
+    board: board,
+    pixelSize: pixelSize
+  });
+  res.send(answer);
+});
+
+
 app.post("/", (req, res) => {
   console.log(req.body);
   let data = JSON.parse(req.body);
@@ -30,12 +40,6 @@ app.post("/", (req, res) => {
     
     case "changeDirection":
       changeDirection(data.nick, data.direction);
-      break;
-    case "getBoard":
-      res.body = JSON.stringify({
-        board: board,
-        pixelSize: pixelSize
-      });
       break;
   }
 

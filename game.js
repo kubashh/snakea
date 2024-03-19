@@ -78,10 +78,10 @@ async function changeDirection(nick, direction) {
 }
 
 
-async function giveBoard() {
+async function getBoard() {
   try {
-    const response = await fetch(adress, {
-      method: "POST",
+    const response = await fetch(adress + "/board", {
+      method: "GET",
       body: JSON.stringify({
         func: "getBoard"
       }),
@@ -94,7 +94,7 @@ async function giveBoard() {
       throw new Error(`Błąd zapytania: ${response.status} ${response.statusText}`);
     }
 
-    console.log(response.body);
+    console.log(response);
   } catch(error) {
     console.error("Błąd podczas wykonywania żądania:", error);
   }
