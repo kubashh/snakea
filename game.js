@@ -1,161 +1,3 @@
-class Backend {
-  Snake = class {
-    constructor(color = "black", nick = "empty") {
-      this.direction = Math.floor(Math.random() *  4);
-      this.color = color;
-      this.nick = nick;
-      let a = backend.freePos();
-      this.body = [a, a, a];
-      backend.snakes.push(this);
-    }
-  
-    move = () => {
-      let next = { x: this.body[this.body.length - 1].x, y: this.body[this.body.length - 1].y };
-      switch(this.direction) {
-        case 0:
-          next.y -= 1;
-          break;
-        case 1:
-          next.x -= 1;
-          break;
-        case 2:
-          next.y += 1;
-          break;  
-        case 3:
-          next.x += 1;
-          break;
-      }
-      if(next.x < 0 || next.y < 0 || next.x >= mapSize || next.y >= mapSize) {
-        backend.snakes.shift(this);
-        changeScene("menu");
-      }
-      this.body.push(next);
-      for(let i = 0; i < backend.apples.length; i++) {
-        if(next.x == backend.apples[i].x && next.y == backend.apples[i].y) {
-          backend.apples.shift(i);
-          return;
-        }
-      }
-      this.body.shift();
-    }
-  
-    changeDirection = (a) => {
-      switch(a) {
-        case 0:
-          if(this.body[this.body.length - 2].y != this.body[this.body.length - 1].y - 1) {
-            this.direction = a;
-          }
-          break;
-        case 1:
-          if(this.body[this.body.length - 2].x != this.body[this.body.length - 1].x - 1) {
-            this.direction = a;
-          }
-          break;
-        case 2:
-          if(this.body[this.body.length - 2].y != this.body[this.body.length - 1].y + 1) {
-            this.direction = a;
-          }
-          break;
-        case 3:
-          if(this.body[this.body.length - 2].x != this.body[this.body.length - 1].x + 1) {
-            this.direction = a;
-          }
-          break;
-      }
-    }
-  }
-
-
-  snakes = [];
-  apples = [];
-  constructor() {
-    setInterval(this.update, 100);
-  }
-
-  newSnake = (color, nick) => {
-    new this.Snake(color, nick);
-  }
-
-  update = () => {
-    this.snakes.forEach((snake) => {
-      snake.move();
-    });
-  
-    if(this.chance(0.06)) {
-      this.generateApple();
-    }
-  }
-
-  generateApple = () => {
-    this.apples.push(backend.freePos());
-  }
-
-  chance = (a) => {
-    if(Math.random() < a) {
-      return true;
-    }
-    return false;
-  }
-
-  getSnakeByNick = (nick) => {
-    for(let i = 0; i < this.snakes.length; i++) {
-      if(this.snakes[i].nick === nick) {
-        return this.snakes[i];
-      }
-    }
-    return null;
-  }
-
-  changeDirection = (nick, direction) => {
-    let snake = this.getSnakeByNick(nick);
-    if(snake) {
-      snake.changeDirection(direction);
-    }
-  }
-
-  freePos = () => {
-    let pos = { x: Math.floor(Math.random() *  Math.floor(mapSize)), y: Math.floor(Math.random() *  Math.floor(mapSize)) };
-    
-    let b = true;
-    while(b) {
-      b = false;
-      backend.snakes.forEach((snake) => {
-        snake.body.forEach((snakebody) => {
-          if(pos.x == snakebody.x && pos.y == snakebody.y) {
-            pos = { x: Math.floor(Math.random() *  Math.floor(mapSize)), y: Math.floor(Math.random() *  Math.floor(mapSize)) };
-            b = true;
-          }
-        });
-      });
-      this.apples.forEach((apple) => {
-        if(pos.x == apple.x && pos.y == apple.y) {
-          pos = { x: Math.floor(Math.random() *  Math.floor(mapSize)), y: Math.floor(Math.random() *  Math.floor(mapSize)) };
-          b = true;
-        }
-      });
-    }
-  
-    return pos;
-  }
-
-  isColorFree = (color) => {
-    this.snakes.forEach((snake) => {
-      if(snake.color == color) {
-        return true;
-      }
-    });
-
-    return true;
-  }
-}
-let backend = new Backend();
-
-
-
-
-
-
-
 const canvas = document.createElement('canvas');
 canvas.width = 1920;
 canvas.height = 1080;
@@ -184,6 +26,78 @@ document.addEventListener("click", () => {
     console.error("pierdole");
   }
 });
+
+
+
+
+async function newSnake(color, nick) {
+  try {
+    const response = await fetch(adress, {
+      method: "POST",
+      body: JSON.stringify({
+        func: "newSnake",
+        color: color,
+        nick: nick
+      }),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
+
+    if(!response.ok) {
+      throw new Error(`Błąd zapytania: ${response.status} ${response.statusText}`);
+    }
+  } catch(error) {
+    console.error("Błąd podczas wykonywania żądania:", error);
+  }
+}
+
+
+async function changeDirection(nick, direction) {
+  try {
+    const response = await fetch(adress, {
+      method: "POST",
+      body: JSON.stringify({
+        func: "changeDirection",
+        nick: nick,
+        direction: direction
+      }),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
+
+    if(!response.ok) {
+      throw new Error(`Błąd zapytania: ${response.status} ${response.statusText}`);
+    }
+  } catch(error) {
+    console.error("Błąd podczas wykonywania żądania:", error);
+  }
+}
+
+
+async function giveBoard() {
+  try {
+    const response = await fetch(adress, {
+      method: "GET",
+      body: JSON.stringify({
+        func: "getBoard"
+      }),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
+
+    if(!response.ok) {
+      throw new Error(`Błąd zapytania: ${response.status} ${response.statusText}`);
+    }
+  } catch(error) {
+    console.error("Błąd podczas wykonywania żądania:", error);
+  }
+}
+
+
+
 
 function changeScene(place) {
   clear();
@@ -296,25 +210,22 @@ function addMenu() {
 }
 
 function canStartGame() {
-  nick = document.getElementById("nick").value;
-  color = document.getElementById("color").value;
-  if(backend.getSnakeByNick(nick)) {
+  let nick = document.getElementById("nick").value;
+  let color = document.getElementById("color").value;
+  /*if(backend.getSnakeByNick(nick)) {
     alert("Color is not free");
     return;
   }
   if(!backend.isColorFree(color)) {
     alert("Color is not free");
     return;
-  }
-  startNewGame()
+  }*/
+  startNewGame(nick, color)
 }
 
-function startNewGame() {
-  nick = document.getElementById("nick").value;
-  color = document.getElementById("color").value;
-
+function startNewGame(nick, color) {
   changeScene("game");
-  backend.newSnake(color, nick);
+  newSnake(color, nick);
   let maxfps = 60;
   renderLoop = setInterval(render, 1000 / maxfps);
 
@@ -322,13 +233,13 @@ function startNewGame() {
     if(inGame) {
       let a = event.key;
       if(a == "ArrowUp" || a == "w" || a == "W") {
-        backend.changeDirection(nick, 0);
+        changeDirection(nick, 0);
       } else if(a == "ArrowLeft" || a == "a" || a == "A") {
-        backend.changeDirection(nick, 1);
+        changeDirection(nick, 1);
       } else if(a == "ArrowDown" || a == "s" || a == "S") {
-        backend.changeDirection(nick, 2);
+        changeDirection(nick, 2);
       } else if(a == "ArrowRight" || a == "d" || a == "D") {
-        backend.changeDirection(nick, 3);
+        changeDirection(nick, 3);
       }
     }
   });

@@ -1,4 +1,4 @@
-const adress = "https://psychic-doodle-jj5vwjj67qqrfq9x6-8888.app.github.dev";
+const adress = "https://psychic-doodle-jj5vwjj67qqrfq9x6-8888.app.github.dev/";
 
 async function sendRequest() {
   try {
