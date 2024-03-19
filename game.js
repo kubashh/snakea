@@ -1,3 +1,5 @@
+const { response } = require("express");
+
 const canvas = document.createElement('canvas');
 canvas.width = 1920;
 canvas.height = 1080;
@@ -79,7 +81,7 @@ async function changeDirection(nick, direction) {
 async function giveBoard() {
   try {
     const response = await fetch(adress, {
-      method: "GET",
+      method: "POST",
       body: JSON.stringify({
         func: "getBoard"
       }),
@@ -91,6 +93,8 @@ async function giveBoard() {
     if(!response.ok) {
       throw new Error(`Błąd zapytania: ${response.status} ${response.statusText}`);
     }
+
+    console.log(response.body);
   } catch(error) {
     console.error("Błąd podczas wykonywania żądania:", error);
   }

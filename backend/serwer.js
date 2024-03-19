@@ -15,23 +15,6 @@ app.use((req, res, next) => {
 
 app.get("/", async (req, res) => {
   console.log(req);
-
-  let body = req.body;
-  if(body != null) {
-    let data = JSON.parse(body);
-    
-    switch(data.funt) {
-      case "getBoard":
-        newSnake(data.color, data.nick);
-        res.send(JSON.stringify({
-          data: "board",
-          board: board,
-          pixelSize: pixelSize
-        }));
-        break;
-    }
-  }
-
   const answer = JSON.stringify({ data: "wal się" });
   res.send(answer);
 });
@@ -47,6 +30,12 @@ app.post("/", (req, res) => {
     
     case "changeDirection":
       changeDirection(data.nick, data.direction);
+      break;
+    case "getBoard":
+      res.body = JSON.stringify({
+        board: board,
+        pixelSize: pixelSize
+      });
       break;
   }
 
