@@ -153,12 +153,12 @@ function update() {
 
   snakes.forEach((snake) => {
     snake.body.forEach((bodyElement) => {
-      array[bodyElement.x][bodyElement.y] = snake.color;
+      board[bodyElement.x][bodyElement.y] = snake.color;
     });
   });
   
   apples.forEach((apple) => {
-    array[apple.x][apple.y] = "yellow";
+    board[apple.x][apple.y] = "yellow";
   });
 }
 
