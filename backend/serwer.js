@@ -16,17 +16,20 @@ app.use((req, res, next) => {
 app.get("/", async (req, res) => {
   console.log(req);
 
-  let data = JSON.parse(req.body);
-  
-  switch(data.funt) {
-    case "getBoard":
-      newSnake(data.color, data.nick);
-      res.send(JSON.stringify({
-        data: "board",
-        board: board,
-        pixelSize: pixelSize
-      }));
-      break;
+  let body = req.body;
+  if(body != null) {
+    let data = JSON.parse(body);
+    
+    switch(data.funt) {
+      case "getBoard":
+        newSnake(data.color, data.nick);
+        res.send(JSON.stringify({
+          data: "board",
+          board: board,
+          pixelSize: pixelSize
+        }));
+        break;
+    }
   }
 
   const answer = JSON.stringify({ data: "wal się" });
