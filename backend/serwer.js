@@ -42,7 +42,7 @@ app.post("/newSnake", (req, res) => {
   console.log(req.body);
 
   let data = req.body;
-  newSnake(date.nick, data.color)
+  newSnake(data.nick, data.color)
 
   res.status(200).end();
 });
