@@ -15,7 +15,6 @@ let renderLoop = setInterval(() => { }, 1000);
 stopListeners();
 
 let color = "red", nick = "Your nick";
-
 let inGame = false;
 
 changeScene("menu");
@@ -80,7 +79,7 @@ async function changeDirection(nick, direction) {
 
 async function getBoard() {
   try {
-    const response = await fetch("/board", {
+    const response = await fetch(adress + "/board", {
       method: "GET",
       body: JSON.stringify({
         func: "getBoard"
