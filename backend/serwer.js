@@ -8,7 +8,7 @@ const port = 8888;
 // Dodaj nagłówek CORS na serwerze
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', "https://kubashh.github.io"); // zezwól na dostęp z dowolnej domeny
-  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+  res.header('Access-Control-Allow-Methods', 'GET, POST'); //, PUT, DELETE
   res.header('Access-Control-Allow-Headers', 'Content-Type');
   next();
 });
@@ -43,6 +43,9 @@ app.post("/newSnake", (req, res) => {
 
   let data = req.body;
   newSnake(data.nick, data.color)
+
+  console.log("snakes: " + snakes);
+  console.log("apples: " + apples);
 
   res.status(200).end();
 });
