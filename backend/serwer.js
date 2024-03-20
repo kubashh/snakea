@@ -3,7 +3,7 @@ const app = express();
 
 app.use(express.json());
 
-const port = 80;
+const port = 8888;
 
 // Dodaj nagłówek CORS na serwerze
 app.use((req, res, next) => {
@@ -15,7 +15,9 @@ app.use((req, res, next) => {
 
 app.get("/", async (req, res) => {
   console.log(req.body);
-  const answer = JSON.stringify({ data: "odpowiedz" });
+  const answer = JSON.stringify({
+    data: "odpowiedz"
+  });
   res.send(answer);
 });
 
