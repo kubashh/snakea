@@ -14,7 +14,7 @@ const mapSize = 50;
 let renderLoop = setInterval(() => { }, 1000);
 stopListeners();
 
-let color = "red", nick = "Your nick";
+let nick = "Your nick", color = "red";
 let inGame = false;
 
 changeScene("menu");
@@ -31,13 +31,13 @@ document.addEventListener("click", () => {
 
 
 
-async function newSnake(color, nick) {
+async function newSnake(nick, color) {
   try {
     const response = await fetch(adress + "/newSnake", {
       method: "POST",
       body: JSON.stringify({
-        color: color,
-        nick: nick
+        nick: nick,
+        color: color
       }),
       headers: {
         "Content-Type": "application/json"
@@ -225,7 +225,7 @@ function canStartGame() {
 
 function startNewGame(nick, color) {
   changeScene("game");
-  newSnake(color, nick);
+  newSnake(nick, color);
   let maxfps = 60;
   renderLoop = setInterval(render, 1000 / maxfps);
 

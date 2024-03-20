@@ -41,6 +41,9 @@ app.post("/", (req, res) => {
 app.post("/newSnake", (req, res) => {
   console.log(req.body);
 
+  let data = JSON.parse(req.body);
+  newSnake(date.nick, data.color)
+
   res.status(200).end();
 });
 
@@ -62,10 +65,10 @@ let apples = [];
 
 
 class Snake {
-  constructor(color = "black", nick = "empty") {
+  constructor(nick = "empty", color = "black") {
     this.direction = Math.floor(Math.random() *  4);
-    this.color = color;
     this.nick = nick;
+    this.color = color;
     let a = freePos();
     this.body = [a, a, a];
     snakes.push(this);
@@ -130,8 +133,8 @@ class Snake {
 
 setInterval(update, 100);
 
-function newSnake(color, nick) {
-  new Snake(color, nick);
+function newSnake(nick, color) {
+  new Snake(nick, color);
 }
 
 function update() {
