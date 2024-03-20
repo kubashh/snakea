@@ -41,7 +41,7 @@ app.post("/", (req, res) => {
 app.post("/newSnake", (req, res) => {
   console.log(req.body);
 
-  let data = JSON.parse(req.body);
+  let data = req.body;
   newSnake(date.nick, data.color)
 
   res.status(200).end();
