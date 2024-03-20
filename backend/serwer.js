@@ -13,6 +13,7 @@ app.use((req, res, next) => {
   next();
 });
 
+
 app.get("/", async (req, res) => {
   console.log(req.body);
   const answer = JSON.stringify({
@@ -33,20 +34,16 @@ app.get("/board", async (req, res) => {
 
 app.post("/", (req, res) => {
   console.log(req.body);
-  let data = JSON.parse(req.body);
-
-  switch(data.funt) {
-    case "newSnake":
-      newSnake(data.color, data.nick);
-      break;
-    
-    case "changeDirection":
-      changeDirection(data.nick, data.direction);
-      break;
-  }
 
   res.status(200).end();
 });
+
+app.post("/newSnake", (req, res) => {
+  console.log(req.body);
+
+  res.status(200).end();
+});
+
 
 app.listen(port, () => {
   console.log(`Aplikacja wystartowała na porcie ${port}`);

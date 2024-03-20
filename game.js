@@ -33,10 +33,9 @@ document.addEventListener("click", () => {
 
 async function newSnake(color, nick) {
   try {
-    const response = await fetch(adress, {
+    const response = await fetch(adress + "/newSnake", {
       method: "POST",
       body: JSON.stringify({
-        func: "newSnake",
         color: color,
         nick: nick
       }),
@@ -56,10 +55,9 @@ async function newSnake(color, nick) {
 
 async function changeDirection(nick, direction) {
   try {
-    const response = await fetch(adress, {
+    const response = await fetch(adress + "/changeDirection", {
       method: "POST",
       body: JSON.stringify({
-        func: "changeDirection",
         nick: nick,
         direction: direction
       }),
@@ -82,7 +80,6 @@ async function getBoard() {
     const response = await fetch(adress + "/board", {
       method: "GET",
       body: JSON.stringify({
-        func: "getBoard"
       }),
       headers: {
         "Content-Type": "application/json"
