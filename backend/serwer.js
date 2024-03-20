@@ -14,13 +14,13 @@ app.use((req, res, next) => {
 });
 
 app.get("/", async (req, res) => {
-  console.log(req);
-  const answer = JSON.stringify({ data: "wal się" });
+  console.log(req.body);
+  const answer = JSON.stringify({ data: "odpowiedz" });
   res.send(answer);
 });
 
 app.get("/board", async (req, res) => {
-  console.log(req);
+  console.log(req.body);
   const answer = JSON.stringify({
     board: board,
     pixelSize: pixelSize

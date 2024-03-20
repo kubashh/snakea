@@ -80,7 +80,7 @@ async function changeDirection(nick, direction) {
 
 async function getBoard() {
   try {
-    const response = await fetch(adress + "/board", {
+    const response = await fetch("/board", {
       method: "GET",
       body: JSON.stringify({
         func: "getBoard"
@@ -169,7 +169,7 @@ function draw() {
 function render() {
   drawBox(0, 0, window.innerWidth, window.innerHeight, "black");
 
-  draw();
+  //draw();
 }
 
 function drawBox(x, y, w, h, color = "white")  {
