@@ -77,14 +77,7 @@ async function changeDirection(nick, direction) {
 
 async function getBoard() {
   try {
-    const response = await fetch(adress + "/board", {
-      method: "GET",
-      body: JSON.stringify({
-      }),
-      headers: {
-        "Content-Type": "application/json"
-      }
-    });
+    const response = await fetch(adress + "/board");
 
     if(!response.ok) {
       throw new Error(`Błąd zapytania: ${response.status} ${response.statusText}`);
