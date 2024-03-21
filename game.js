@@ -157,8 +157,6 @@ async function draw() {
 }
 
 function render() {
-  drawBox(0, 0, window.innerWidth, window.innerHeight, "black");
-
   draw();
 }
 
