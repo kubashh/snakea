@@ -42,7 +42,9 @@ app.post("/newSnake", (req, res) => {
   console.log(req.body);
 
   let data = req.body;
-  newSnake(data.nick, data.color)
+  if(isGoodNewSnakeData(data.nick, data.color)) {
+    newSnake(data.nick, data.color);
+  }
 
   console.log("snakes: ", snakes);
   console.log("apples: ", apples);
@@ -215,10 +217,30 @@ function freePos() {
   return pos;
 }
 
-function isColorFree(color) {
+
+
+function isGoodNewSnakeData(nick, color) {
+  if(isGoodNick(nick) || isGoodColor(color)) {
+    return false;
+  }
+
+  return true;
+}
+
+function isGoodNick(nick) {
+  snakes.forEach((snake) => {
+    if(snake.nick == nick) {
+      return false;
+    }
+  });
+
+  return true;
+}
+
+function isGoodColor(color) {
   snakes.forEach((snake) => {
     if(snake.color == color) {
-      return true;
+      return false;
     }
   });
 
