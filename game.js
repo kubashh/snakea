@@ -132,7 +132,10 @@ async function draw() {
 
     console.log(response);
 
-    let array = response.board;
+    const resjson = await response.json();
+    console.log(resjson);
+
+    let array = resjson.board;
     let xa = 0, ya = 0; //let xa = Math.round(-backend.snakes[0].body[backend.snakes[0].body.length - 1].x * pixelSize + window.innerWidth / 2), ya = Math.round(-backend.snakes[0].body[backend.snakes[0].body.length - 1].y * pixelSize + window.innerHeight / 2);
 
     let w = window.innerWidth, h = window.innerHeight;
