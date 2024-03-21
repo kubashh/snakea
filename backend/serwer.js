@@ -36,6 +36,10 @@ app.get("/board", async (req, res) => {
 app.post("/", (req, res) => {
   //console.log(req.body);
 
+  res.send(JSON.stringify({
+    snakes: snakes
+  }));
+
   res.status(200).end();
 });
 
@@ -56,10 +60,6 @@ app.post("/newSnake", (req, res) => {
 app.post("/changeDirection", (req, res) => {
   let data = req.body;
   changeDirection(data.nick, data.direction);
-
-  res.send(JSON.stringify({
-    snakes: snakes
-  }));
 
   res.status(200).end();
 });

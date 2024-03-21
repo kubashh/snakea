@@ -80,8 +80,7 @@ async function tryPost() {
     const response = await fetch(adress + "/", {
       method: "POST",
       body: JSON.stringify({
-        nick: nick,
-        direction: direction
+        data: "data"
       }),
       headers: {
         "Content-Type": "application/json"
