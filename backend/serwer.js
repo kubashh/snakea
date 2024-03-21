@@ -111,11 +111,12 @@ class Snake {
     }
     if(next.x < 0 || next.y < 0 || next.x >= mapSize || next.y >= mapSize) {
       snakes.shift(this);
+      return;
     }
     this.body.push(next);
-    for(let i = 0; i < apples.length; i++) {
-      if(next.x == apples[i].x && next.y == apples[i].y) {
-        apples.shift(i);
+    for(let apple of apples) {
+      if(next.x == apple.x && next.y == apple.y) {
+        apples.shift(apple);
         return;
       }
     }

@@ -123,7 +123,7 @@ function draw() {
       }
     }
 
-    for (let snake of rjson.snakes) {
+    for(let snake of rjson.snakes) {
       renderText(snake.nick, xa + (snake.body[snake.body.length - 1].x - 0.5) * pixelSize, ya + (snake.body[snake.body.length - 1].y - 0.5) * pixelSize);
     }
   })
