@@ -105,6 +105,11 @@ async function draw() {
 
     const rjson = await response.json();
 
+    if(!rjson) {
+      addMenu();
+      return;
+    }
+
     let board = rjson.board;
     let xa = Math.round(-rjson.head.x * pixelSize + window.innerWidth / 2), ya = Math.round(-rjson.head.y * pixelSize + window.innerHeight / 2);
 
