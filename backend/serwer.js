@@ -53,6 +53,13 @@ app.post("/newSnake", (req, res) => {
   res.status(200).end();
 });
 
+app.post("/changeDirection", (req, res) => {
+  let data = req.body;
+  changeDirection(data.nick, data.direction);
+
+  res.status(200).end();
+});
+
 
 app.listen(port, () => {
   console.log(`Aplikacja wystartowała na porcie ${port}`);
