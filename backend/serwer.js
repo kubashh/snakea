@@ -217,7 +217,7 @@ function freePos() {
 
 
 function isGoodNewSnakeData(nick, color) {
-  if(isGoodNick(nick) || isGoodColor(color)) {
+  if(!isGoodNick(nick) || !isGoodColor(color)) {
     return false;
   }
 
