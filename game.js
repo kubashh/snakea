@@ -75,30 +75,6 @@ async function changeDirection(nick, direction) {
 }
 
 
-async function tryPost() {
-  try {
-    const response = await fetch(adress + "/", {
-      method: "POST",
-      body: JSON.stringify({
-        data: "data"
-      }),
-      headers: {
-        "Content-Type": "application/json"
-      }
-    });
-    if(!response.ok) {
-      throw new Error(`Błąd zapytania: ${response.status} ${response.statusText}`);
-    }
-
-    console.log(response);
-    let rjson = await response.json();
-    console.log(rjson);
-  } catch(error) {
-    console.error("Błąd podczas wykonywania żądania:", error);
-  }
-} tryPost();
-
-
 
 
 function changeScene(place) {

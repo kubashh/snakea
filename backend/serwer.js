@@ -66,7 +66,7 @@ app.post("/board", async (req, res) => {
     head: head,
     snakes: snakes
   }));
-  res.send(answer);
+  res.status(200).end();
 });
 
 app.post("/changeDirection", (req, res) => {
