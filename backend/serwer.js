@@ -37,7 +37,7 @@ app.post("/newSnake", (req, res) => {
   console.log("snakes: ", snakes);
   //console.log("apples: ", apples);
 
-  res.send("");
+  res.send(JSON.stringify({ data: "odpowiedz" }));
   res.status(200).end();
 });
 
