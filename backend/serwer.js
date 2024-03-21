@@ -44,8 +44,8 @@ app.post("/newSnake", (req, res) => {
   let data = req.body;
   newSnake(data.nick, data.color)
 
-  console.log("snakes: " + JSON.stringify(snakes));
-  console.log("apples: " + JSON.stringify(apples));
+  console.log("snakes: ", snakes);
+  console.log("apples: ", apples);
 
   res.status(200).end();
 });
