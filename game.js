@@ -87,25 +87,24 @@ function addCanvas() {
   document.body.appendChild(canvas);
 }
 
-async function draw() {
-  try {
-    const response = await fetch(adress + "/board", {
-      method: "POST",
-      body: JSON.stringify({
-        nick: nick
-      }),
-      headers: {
-        "Content-Type": "application/json"
-      }
-    });
-
-    if(!response.ok) {
+function draw() {
+  fetch(adress + "/board", {
+    method: "POST",
+    body: JSON.stringify({
+      nick: nick
+    }),
+    headers: {
+      "Content-Type": "application/json"
+    }
+  })
+  .then(response => {
+    if (!response.ok) {
       throw new Error(`Błąd zapytania: ${response.status} ${response.statusText}`);
     }
-
-    const rjson = await response.json();
-
-    if(rjson.head == null) {
+    return response.json();
+  })
+  .then(rjson => {
+    if (rjson.head == null) {
       addMenu();
       return;
     }
@@ -115,21 +114,22 @@ async function draw() {
 
     let w = window.innerWidth, h = window.innerHeight;
     drawBox(0, 0, w, h, "#008");
-    for(let i = 0; i < board.length; i++) {
-      for(let j = 0; j < board[i].length; j++) {
+    for (let i = 0; i < board.length; i++) {
+      for (let j = 0; j < board[i].length; j++) {
         let x = i * pixelSize + xa, y = j * pixelSize + ya;
-        if(0 < x < h && 0 < y < w) {
+        if (0 < x < h && 0 < y < w) {
           drawBox(x, y, pixelSize, pixelSize, board[i][j]);
         }
       }
     }
 
-    for(let snake of rjson.snakes) {
+    for (let snake of rjson.snakes) {
       renderText(snake.nick, xa + (snake.body[snake.body.length - 1].x - 0.5) * pixelSize, ya + (snake.body[snake.body.length - 1].y - 0.5) * pixelSize);
     }
-  } catch(error) {
+  })
+  .catch(error => {
     console.error("Błąd podczas wykonywania żądania:", error);
-  }
+  });
 }
 
 function render() {
