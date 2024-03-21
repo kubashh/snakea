@@ -121,9 +121,7 @@ async function draw() {
       throw new Error(`Błąd zapytania: ${response.status} ${response.statusText}`);
     }
 
-    console.log(response);
     const rjson = await response.json();
-    console.log(rjson);
 
     let board = rjson.board;
     let xa = Math.round(-rjson.head.x * pixelSize + window.innerWidth / 2), ya = Math.round(-rjson.head.y * pixelSize + window.innerHeight / 2);
@@ -139,9 +137,9 @@ async function draw() {
       }
     }
 
-    /*backend.snakes.forEach((snake) => {
+    for(let snake of rjson.snakes) {
       renderText(snake.nick, xa + (snake.body[snake.body.length - 1].x - 0.5) * pixelSize, ya + (snake.body[snake.body.length - 1].y - 0.5) * pixelSize);
-    });*/
+    }
   } catch(error) {
     console.error("Błąd podczas wykonywania żądania:", error);
   }

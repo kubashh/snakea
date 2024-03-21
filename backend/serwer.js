@@ -14,23 +14,10 @@ app.use((req, res, next) => {
 });
 
 
-app.get("/", async (req, res) => {
+app.get("/", (req, res) => {
   //console.log(req.body);
   res.send(JSON.stringify({ data: "odpowiedz" }));
 });
-
-/*app.get("/board", async (req, res) => {
-  let head = { x: 0, y: 0 };
-  if(snakes[0]) {
-    head = snakes[0].body[snakes[0].body.length - 1];
-  }
-  const answer = JSON.stringify({
-    board: board,
-    mapSize: mapSize,
-    head: head
-  });
-  res.send(answer);
-});*/
 
 
 app.post("/", (req, res) => {
@@ -53,7 +40,7 @@ app.post("/newSnake", (req, res) => {
   res.status(200).end();
 });
 
-app.post("/board", async (req, res) => {
+app.post("/board", (req, res) => {
   let data = req.body;
   let snake = getSnakeByNick(data.nick);
   let head = { x: 0, y: 0 };
