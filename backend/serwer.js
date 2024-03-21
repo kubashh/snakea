@@ -58,7 +58,7 @@ app.post("/board", (req, res) => {
 
 app.post("/direction", (req, res) => {
   let data = req.body;
-  if(data.nick && data.direction) {
+  if(data.nick && data.direction !== undefined) {
     changeDirection(data.nick, data.direction);
   }
 
