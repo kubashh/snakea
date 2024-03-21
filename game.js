@@ -12,7 +12,7 @@ const pixelSize = 40;
 const mapSize = 50;
 
 let renderLoop = setInterval(() => { }, 1000);
-stopListeners();
+clearInterval(renderLoop);
 
 let nick = "Your nick", color = "red";
 let inGame = false;
@@ -84,6 +84,7 @@ async function getBoard() {
     }
 
     console.log(response);
+    return response;
   } catch(error) {
     console.error("Błąd podczas wykonywania żądania:", error);
   }
@@ -108,15 +109,11 @@ function changeScene(place) {
 }
 
 function clear() {
-  stopListeners();
+  clearInterval(renderLoop);
   let body = document.body;
   while(body.firstChild) {
     body.removeChild(body.firstChild);
   }
-}
-
-function stopListeners() {
-  clearInterval(renderLoop);
 }
 
 function addCanvas() {
@@ -126,19 +123,10 @@ function addCanvas() {
 
 function draw() {
   drawBox(0, 0, window.innerWidth, window.innerHeight, "#008");
-  let array = Array.from({ length: mapSize }, () => Array(mapSize).fill("black"));
+  let data = getBoard();
+  let array = data.board;
 
-  backend.snakes.forEach((snake) => {
-    snake.body.forEach((bodyElement) => {
-      array[bodyElement.x][bodyElement.y] = snake.color;
-    });
-  });
-  
-  backend.apples.forEach((apple) => {
-    array[apple.x][apple.y] = "yellow";
-  })
-
-  let xa = Math.round(-backend.snakes[0].body[backend.snakes[0].body.length - 1].x * pixelSize + window.innerWidth / 2), ya = Math.round(-backend.snakes[0].body[backend.snakes[0].body.length - 1].y * pixelSize + window.innerHeight / 2);
+  let xa = 0, ya = 0; //let xa = Math.round(-backend.snakes[0].body[backend.snakes[0].body.length - 1].x * pixelSize + window.innerWidth / 2), ya = Math.round(-backend.snakes[0].body[backend.snakes[0].body.length - 1].y * pixelSize + window.innerHeight / 2);
 
   let w = window.innerWidth, h = window.innerHeight;
   for(let i = 0; i < array.length; i++) {
@@ -150,15 +138,15 @@ function draw() {
     }
   }
 
-  backend.snakes.forEach((snake) => {
+  /*backend.snakes.forEach((snake) => {
     renderText(snake.nick, xa + (snake.body[snake.body.length - 1].x - 0.5) * pixelSize, ya + (snake.body[snake.body.length - 1].y - 0.5) * pixelSize);
-  });
+  });*/
 }
 
 function render() {
   drawBox(0, 0, window.innerWidth, window.innerHeight, "black");
 
-  //draw();
+  draw();
 }
 
 function drawBox(x, y, w, h, color = "white")  {
@@ -213,13 +201,13 @@ function canStartGame() {
     alert("Color is not free");
     return;
   }*/
-  startNewGame(nick, color)
+  startNewGame(nick, color);
 }
 
 function startNewGame(nick, color) {
   changeScene("game");
   newSnake(nick, color);
-  let maxfps = 60;
+  let maxfps = 5;
   renderLoop = setInterval(render, 1000 / maxfps);
 
   document.addEventListener('keydown', (event) => {
