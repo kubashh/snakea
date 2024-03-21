@@ -20,11 +20,14 @@ app.get("/", async (req, res) => {
 });
 
 app.get("/board", async (req, res) => {
-  //console.log(req.body);
+  let head = { x: 0, y: 0 };
+  if(snakes[0].body) {
+    head = snakes[0].body[snakes[0].body.length - 1];
+  }
   const answer = JSON.stringify({
     board: board,
     mapSize: mapSize,
-    head: snakes[0].body[snakes[0].body.length - 1]
+    head: head
   });
   res.send(answer);
 });
