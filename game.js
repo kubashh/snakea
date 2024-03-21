@@ -129,7 +129,7 @@ async function draw() {
     const resjson = await response.json();
 
     let array = resjson.board;
-    let xa = Math.round(-resjson.snake.body[resjson.snake.body.length - 1].x * pixelSize + window.innerWidth / 2), ya = Math.round(-resjson.snake.body[resjson.snake.body.length - 1].y * pixelSize + window.innerHeight / 2);
+    let xa = Math.round(-resjson.head.x * pixelSize + window.innerWidth / 2), ya = Math.round(-resjson.head.y * pixelSize + window.innerHeight / 2);
 
     let w = window.innerWidth, h = window.innerHeight;
     drawBox(0, 0, w, h, "#008");

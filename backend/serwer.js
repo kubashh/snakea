@@ -24,7 +24,7 @@ app.get("/board", async (req, res) => {
   const answer = JSON.stringify({
     board: board,
     mapSize: mapSize,
-    snake: snakes[0]
+    head: snakes[0].body[snakes[0].body.length - 1]
   });
   res.send(answer);
 });
