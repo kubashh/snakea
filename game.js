@@ -156,7 +156,7 @@ async function draw() {
 function render() {
   drawBox(0, 0, window.innerWidth, window.innerHeight, "black");
 
-  draw();
+  //draw();
 }
 
 function drawBox(x, y, w, h, color = "white")  {
@@ -219,6 +219,7 @@ function startNewGame(nick, color) {
   newSnake(nick, color);
   let maxfps = 5;
   renderLoop = setInterval(render, 1000 / maxfps);
+  draw();
 
   document.addEventListener('keydown', (event) => {
     if(inGame) {
