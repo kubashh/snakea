@@ -37,6 +37,7 @@ app.post("/newSnake", (req, res) => {
   console.log("snakes: ", snakes);
   //console.log("apples: ", apples);
 
+  res.send("");
   res.status(200).end();
 });
 
