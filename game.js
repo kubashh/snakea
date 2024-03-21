@@ -30,26 +30,17 @@ document.addEventListener("click", () => {
 
 
 
-
-async function newSnake(nick, color) {
-  try {
-    const response = await fetch(adress + "/newSnake", {
-      method: "POST",
-      body: JSON.stringify({
-        nick: nick,
-        color: color
-      }),
-      headers: {
-        "Content-Type": "application/json"
-      }
-    });
-
-    if(!response.ok) {
-      throw new Error(`Błąd zapytania: ${response.status} ${response.statusText}`);
+function newSnake(nick, color) {
+  fetch(adress + "/newSnake", {
+    method: "POST",
+    body: JSON.stringify({
+      nick: nick,
+      color: color
+    }),
+    headers: {
+      "Content-Type": "application/json"
     }
-  } catch(error) {
-    console.error("Błąd podczas wykonywania żądania:", error);
-  }
+  });
 }
 
 
@@ -65,7 +56,6 @@ function changeDirection(nick, direction) {
     }
   });
 }
-
 
 
 

@@ -76,8 +76,7 @@ app.listen(port, () => {
 
 
 
-
-const mapSize = 40;
+const mapSize = 50;
 let board = Array.from({ length: mapSize }, () => Array(mapSize).fill("black"));
 let snakes = [];
 let apples = [];
