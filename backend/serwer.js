@@ -57,6 +57,10 @@ app.post("/changeDirection", (req, res) => {
   let data = req.body;
   changeDirection(data.nick, data.direction);
 
+  res.send(JSON.stringify({
+    snakes: snakes
+  }));
+
   res.status(200).end();
 });
 
@@ -70,7 +74,7 @@ app.listen(port, () => {
 
 
 
-const mapSize = 50;
+const mapSize = 40;
 let board = Array.from({ length: mapSize }, () => Array(mapSize).fill("black"));
 let snakes = [];
 let apples = [];

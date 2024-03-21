@@ -75,17 +75,29 @@ async function changeDirection(nick, direction) {
 }
 
 
-async function getBoard() {
+async function tryPost() {
   try {
-    const response = await fetch(adress + "/board");
-
+    const response = await fetch(adress + "/", {
+      method: "POST",
+      body: JSON.stringify({
+        nick: nick,
+        direction: direction
+      }),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
     if(!response.ok) {
       throw new Error(`Błąd zapytania: ${response.status} ${response.statusText}`);
     }
+
+    console.log(response);
+    let rjson = await response.json();
+    console.log(rjson);
   } catch(error) {
     console.error("Błąd podczas wykonywania żądania:", error);
   }
-}
+} tryPost();
 
 
 
@@ -212,7 +224,7 @@ function canStartGame() {
 function startNewGame(nick, color) {
   changeScene("game");
   newSnake(nick, color);
-  let maxfps = 5;
+  let maxfps = 10;
   renderLoop = setInterval(render, 1000 / maxfps);
 
   document.addEventListener('keydown', (event) => {
