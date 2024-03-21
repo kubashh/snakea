@@ -21,7 +21,7 @@ app.get("/", async (req, res) => {
 
 app.get("/board", async (req, res) => {
   let head = { x: 0, y: 0 };
-  if(snakes[0].body) {
+  if(snakes[0]) {
     head = snakes[0].body[snakes[0].body.length - 1];
   }
   const answer = JSON.stringify({
