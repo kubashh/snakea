@@ -181,9 +181,9 @@ function chance(a) {
 }
 
 function getSnakeByNick(nick) {
-  for(let i = 0; i < this.snakes.length; i++) {
-    if(this.snakes[i].nick === nick) {
-      return this.snakes[i];
+  for(let snake of snakes) {
+    if(snake.nick === nick) {
+      return snake;
     }
   }
   return null;
