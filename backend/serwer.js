@@ -196,7 +196,7 @@ function freePos() {
   while(b) {
     b = false;
     for(let snake of snakes) {
-      for(let snakebody of snake) {
+      for(let snakebody of snake.body) {
         if(pos.x == snakebody.x && pos.y == snakebody.y) {
           pos = { x: Math.floor(Math.random() *  Math.floor(mapSize)), y: Math.floor(Math.random() *  Math.floor(mapSize)) };
           b = true;
