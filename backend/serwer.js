@@ -76,7 +76,7 @@ app.listen(port, () => {
 
 
 
-const mapSize = 50;
+const mapSize = 60;
 let board = Array.from({ length: mapSize }, () => Array(mapSize).fill("black"));
 let snakes = [];
 let apples = [];
@@ -88,7 +88,7 @@ class Snake {
     this.direction = Math.floor(Math.random() *  4);
     this.nick = nick;
     this.color = color;
-    let a = freePos();
+    let a = freePos(6);
     this.body = [a, a, a];
     snakes.push(this);
   }
@@ -178,7 +178,7 @@ function update() {
 
 function generateApple() {
   if(apples.length < mapSize / 6) {
-    apples.push(freePos());
+    apples.push(freePos(3));
   }
 }
 
@@ -209,8 +209,8 @@ function randInt(a, b) {
   return Math.floor(a + Math.random() * Math.floor(b - a));
 }
 
-function freePos() {
-  let pos = { x: randInt(3, mapSize - 3), y: randInt(3, mapSize - 3) };
+function freePos(a = 0) {
+  let pos = { x: randInt(a, mapSize - a), y: randInt(a, mapSize - a) };
   
   let b = true;
   while(b) {
@@ -218,14 +218,14 @@ function freePos() {
     for(let snake of snakes) {
       for(let snakebody of snake.body) {
         if(pos.x == snakebody.x && pos.y == snakebody.y) {
-          pos = { x: randInt(3, mapSize - 3), y: randInt(3, mapSize - 3) };
+          pos = { x: randInt(a, mapSize - a), y: randInt(a, mapSize - a) };
           b = true;
         }
       }
     }
     for(let apple of apples) {
       if(pos.x == apple.x && pos.y == apple.y) {
-        pos = { x: randInt(3, mapSize - 3), y: randInt(3, mapSize - 3) };
+        pos = { x: randInt(a, mapSize - a), y: randInt(a, mapSize - a) };
         b = true;
       }
     }
