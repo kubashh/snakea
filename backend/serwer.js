@@ -44,11 +44,11 @@ app.post("/newSnake", (req, res) => {
 
   let data = req.body;
   if(isGoodNewSnakeData(data.nick, data.color)) {
-    newSnake(data.nick, data.color);
+    new Snake(data.nick, data.color);
   }
 
   console.log("snakes: ", snakes);
-  console.log("apples: ", apples);
+  //console.log("apples: ", apples);
 
   res.status(200).end();
 });
@@ -138,10 +138,6 @@ class Snake {
 
 
 setInterval(update, 100);
-
-function newSnake(nick, color) {
-  new Snake(nick, color);
-}
 
 function update() {
   for(let snake of snakes) {
