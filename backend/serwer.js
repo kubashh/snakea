@@ -151,7 +151,7 @@ function update() {
   // odswierzanie planszy
   board = Array.from({ length: mapSize }, () => Array(mapSize).fill("black"));
 
-  for(let snake of snake) {
+  for(let snake of snakes) {
     for(let bodyElement of snake.body) {
       board[bodyElement.x][bodyElement.y] = snake.color;
     }
