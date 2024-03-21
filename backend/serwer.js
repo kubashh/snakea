@@ -19,7 +19,7 @@ app.get("/", async (req, res) => {
   res.send(JSON.stringify({ data: "odpowiedz" }));
 });
 
-app.get("/board", async (req, res) => {
+/*app.get("/board", async (req, res) => {
   let head = { x: 0, y: 0 };
   if(snakes[0]) {
     head = snakes[0].body[snakes[0].body.length - 1];
@@ -30,15 +30,11 @@ app.get("/board", async (req, res) => {
     head: head
   });
   res.send(answer);
-});
+});*/
 
 
 app.post("/", (req, res) => {
   //console.log(req.body);
-
-  res.send(JSON.stringify({
-    snakes: snakes
-  }));
 
   res.status(200).end();
 });
@@ -55,6 +51,22 @@ app.post("/newSnake", (req, res) => {
   //console.log("apples: ", apples);
 
   res.status(200).end();
+});
+
+app.post("/board", async (req, res) => {
+  let data = req.body;
+  let snake = getSnakeByNick(data.nick);
+  let head = { x: 0, y: 0 };
+  if(snake) {
+    head = snake.body[snake.body.length - 1];
+  }
+  res.send(JSON.stringify({
+    board: board,
+    mapSize: mapSize,
+    head: head,
+    snakes: snakes
+  }));
+  res.send(answer);
 });
 
 app.post("/changeDirection", (req, res) => {

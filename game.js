@@ -131,24 +131,34 @@ function addCanvas() {
 
 async function draw() {
   try {
-    const response = await fetch(adress + "/board");
+    const response = await fetch(adress + "/board", {
+      method: "POST",
+      body: JSON.stringify({
+        nick: nick
+      }),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
 
     if(!response.ok) {
       throw new Error(`Błąd zapytania: ${response.status} ${response.statusText}`);
     }
 
-    const resjson = await response.json();
+    console.log(response);
+    const rjson = await response.json();
+    console.log(rjson);
 
-    let array = resjson.board;
-    let xa = Math.round(-resjson.head.x * pixelSize + window.innerWidth / 2), ya = Math.round(-resjson.head.y * pixelSize + window.innerHeight / 2);
+    let board = rjson.board;
+    let xa = Math.round(-rjson.head.x * pixelSize + window.innerWidth / 2), ya = Math.round(-rjson.head.y * pixelSize + window.innerHeight / 2);
 
     let w = window.innerWidth, h = window.innerHeight;
     drawBox(0, 0, w, h, "#008");
-    for(let i = 0; i < array.length; i++) {
-      for(let j = 0; j < array[i].length; j++) {
+    for(let i = 0; i < board.length; i++) {
+      for(let j = 0; j < board[i].length; j++) {
         let x = i * pixelSize + xa, y = j * pixelSize + ya;
         if(0 < x < h && 0 < y < w) {
-          drawBox(x, y, pixelSize, pixelSize, array[i][j]);
+          drawBox(x, y, pixelSize, pixelSize, board[i][j]);
         }
       }
     }
@@ -207,8 +217,8 @@ function addMenu() {
 }
 
 function canStartGame() {
-  let nick = document.getElementById("nick").value;
-  let color = document.getElementById("color").value;
+  nick = document.getElementById("nick").value;
+  color = document.getElementById("color").value;
   /*if(backend.getSnakeByNick(nick)) {
     alert("Color is not free");
     return;
@@ -217,10 +227,10 @@ function canStartGame() {
     alert("Color is not free");
     return;
   }*/
-  startNewGame(nick, color);
+  startNewGame();
 }
 
-function startNewGame(nick, color) {
+function startNewGame() {
   changeScene("game");
   newSnake(nick, color);
   let maxfps = 10;
