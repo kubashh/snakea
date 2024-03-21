@@ -82,9 +82,6 @@ async function getBoard() {
     if(!response.ok) {
       throw new Error(`Błąd zapytania: ${response.status} ${response.statusText}`);
     }
-
-    console.log(response);
-    return response;
   } catch(error) {
     console.error("Błąd podczas wykonywania żądania:", error);
   }
@@ -129,10 +126,7 @@ async function draw() {
       throw new Error(`Błąd zapytania: ${response.status} ${response.statusText}`);
     }
 
-    console.log(response);
-
     const resjson = await response.json();
-    console.log(resjson);
 
     let array = resjson.board;
     let xa = 500, ya = 500; //let xa = Math.round(-backend.snakes[0].body[backend.snakes[0].body.length - 1].x * pixelSize + window.innerWidth / 2), ya = Math.round(-backend.snakes[0].body[backend.snakes[0].body.length - 1].y * pixelSize + window.innerHeight / 2);
