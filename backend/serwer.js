@@ -15,15 +15,12 @@ app.use((req, res, next) => {
 
 
 app.get("/", async (req, res) => {
-  console.log(req.body);
-  const answer = JSON.stringify({
-    data: "odpowiedz"
-  });
-  res.send(answer);
+  //console.log(req.body);
+  res.send(JSON.stringify({ data: "odpowiedz" }));
 });
 
 app.get("/board", async (req, res) => {
-  console.log(req.body);
+  //console.log(req.body);
   const answer = JSON.stringify({
     board: board,
     mapSize: mapSize
@@ -33,13 +30,13 @@ app.get("/board", async (req, res) => {
 
 
 app.post("/", (req, res) => {
-  console.log(req.body);
+  //console.log(req.body);
 
   res.status(200).end();
 });
 
 app.post("/newSnake", (req, res) => {
-  console.log(req.body);
+  //console.log(req.body);
 
   let data = req.body;
   if(isGoodNewSnakeData(data.nick, data.color)) {
@@ -143,9 +140,9 @@ function newSnake(nick, color) {
 }
 
 function update() {
-  snakes.forEach((snake) => {
+  for(let snake of snakes) {
     snake.move();
-  });
+  }
 
   if(chance(0.06)) {
     generateApple();
@@ -154,15 +151,15 @@ function update() {
   // odswierzanie planszy
   board = Array.from({ length: mapSize }, () => Array(mapSize).fill("black"));
 
-  snakes.forEach((snake) => {
-    snake.body.forEach((bodyElement) => {
+  for(let snake of snake) {
+    for(let bodyElement of snake.body) {
       board[bodyElement.x][bodyElement.y] = snake.color;
-    });
-  });
+    }
+  }
   
-  apples.forEach((apple) => {
+  for(let apple of apples) {
     board[apple.x][apple.y] = "yellow";
-  });
+  }
 }
 
 function generateApple() {
@@ -198,20 +195,20 @@ function freePos() {
   let b = true;
   while(b) {
     b = false;
-    snakes.forEach((snake) => {
-      snake.body.forEach((snakebody) => {
+    for(let snake of snakes) {
+      for(let snakebody of snake) {
         if(pos.x == snakebody.x && pos.y == snakebody.y) {
           pos = { x: Math.floor(Math.random() *  Math.floor(mapSize)), y: Math.floor(Math.random() *  Math.floor(mapSize)) };
           b = true;
         }
-      });
-    });
-    apples.forEach((apple) => {
+      }
+    }
+    for(let apple of apples) {
       if(pos.x == apple.x && pos.y == apple.y) {
         pos = { x: Math.floor(Math.random() *  Math.floor(mapSize)), y: Math.floor(Math.random() *  Math.floor(mapSize)) };
         b = true;
       }
-    });
+    }
   }
 
   return pos;
@@ -228,21 +225,21 @@ function isGoodNewSnakeData(nick, color) {
 }
 
 function isGoodNick(nick) {
-  snakes.forEach((snake) => {
+  for(let snake of snakes) {
     if(snake.nick == nick) {
       return false;
     }
-  });
+  }
 
   return true;
 }
 
 function isGoodColor(color) {
-  snakes.forEach((snake) => {
+  for(let snake of snakes) {
     if(snake.color == color) {
       return false;
     }
-  });
+  }
 
   return true;
 }
