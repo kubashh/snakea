@@ -101,7 +101,13 @@ function draw() {
     if (!response.ok) {
       throw new Error(`Błąd zapytania: ${response.status} ${response.statusText}`);
     }
-    let rjson = response.json();
+    return response.json();
+  })
+  .then(rjson => {
+    if (rjson.head == null) {
+      addMenu();
+      return;
+    }
 
     let board = rjson.board;
     let xa = Math.round(-rjson.head.x * pixelSize + window.innerWidth / 2), ya = Math.round(-rjson.head.y * pixelSize + window.innerHeight / 2);
