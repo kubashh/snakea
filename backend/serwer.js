@@ -56,9 +56,11 @@ app.post("/board", (req, res) => {
   res.status(200).end();
 });
 
-app.post("/changeDirection", (req, res) => {
+app.post("/direction", (req, res) => {
   let data = req.body;
-  changeDirection(data.nick, data.direction);
+  if(data.nick && data.direction) {
+    changeDirection(data.nick, data.direction);
+  }
 
   res.status(200).end();
 });

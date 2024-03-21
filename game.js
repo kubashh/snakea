@@ -54,7 +54,7 @@ async function newSnake(nick, color) {
 
 
 function changeDirection(nick, direction) {
-  fetch(adress + "/changeDirection", {
+  fetch(adress + "/direction", {
     method: "POST",
     body: JSON.stringify({
       nick: nick,
