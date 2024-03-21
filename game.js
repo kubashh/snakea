@@ -121,26 +121,36 @@ function addCanvas() {
   document.body.appendChild(canvas);
 }
 
-function draw() {
+async function draw() {
   drawBox(0, 0, window.innerWidth, window.innerHeight, "#008");
-  let data = getBoard();
-  let array = data.board;
+  try {
+    const response = await fetch(adress + "/board");
 
-  let xa = 0, ya = 0; //let xa = Math.round(-backend.snakes[0].body[backend.snakes[0].body.length - 1].x * pixelSize + window.innerWidth / 2), ya = Math.round(-backend.snakes[0].body[backend.snakes[0].body.length - 1].y * pixelSize + window.innerHeight / 2);
+    if(!response.ok) {
+      throw new Error(`Błąd zapytania: ${response.status} ${response.statusText}`);
+    }
 
-  let w = window.innerWidth, h = window.innerHeight;
-  for(let i = 0; i < array.length; i++) {
-    for(let j = 0; j < array[i].length; j++) {
-      let x = i * pixelSize + xa, y = j * pixelSize + ya;
-      if(0 < x < h && 0 < y < w) {
-        drawBox(x, y, pixelSize, pixelSize, array[i][j]);
+    console.log(response);
+
+    let array = response.board;
+    let xa = 0, ya = 0; //let xa = Math.round(-backend.snakes[0].body[backend.snakes[0].body.length - 1].x * pixelSize + window.innerWidth / 2), ya = Math.round(-backend.snakes[0].body[backend.snakes[0].body.length - 1].y * pixelSize + window.innerHeight / 2);
+
+    let w = window.innerWidth, h = window.innerHeight;
+    for(let i = 0; i < array.length; i++) {
+      for(let j = 0; j < array[i].length; j++) {
+        let x = i * pixelSize + xa, y = j * pixelSize + ya;
+        if(0 < x < h && 0 < y < w) {
+          drawBox(x, y, pixelSize, pixelSize, array[i][j]);
+        }
       }
     }
-  }
 
-  /*backend.snakes.forEach((snake) => {
-    renderText(snake.nick, xa + (snake.body[snake.body.length - 1].x - 0.5) * pixelSize, ya + (snake.body[snake.body.length - 1].y - 0.5) * pixelSize);
-  });*/
+    /*backend.snakes.forEach((snake) => {
+      renderText(snake.nick, xa + (snake.body[snake.body.length - 1].x - 0.5) * pixelSize, ya + (snake.body[snake.body.length - 1].y - 0.5) * pixelSize);
+    });*/
+  } catch(error) {
+    console.error("Błąd podczas wykonywania żądania:", error);
+  }
 }
 
 function render() {
