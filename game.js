@@ -122,7 +122,6 @@ function addCanvas() {
 }
 
 async function draw() {
-  drawBox(0, 0, window.innerWidth, window.innerHeight, "#008");
   try {
     const response = await fetch(adress + "/board");
 
@@ -139,6 +138,7 @@ async function draw() {
     let xa = 0, ya = 0; //let xa = Math.round(-backend.snakes[0].body[backend.snakes[0].body.length - 1].x * pixelSize + window.innerWidth / 2), ya = Math.round(-backend.snakes[0].body[backend.snakes[0].body.length - 1].y * pixelSize + window.innerHeight / 2);
 
     let w = window.innerWidth, h = window.innerHeight;
+    drawBox(0, 0, w, h, "#008");
     for(let i = 0; i < array.length; i++) {
       for(let j = 0; j < array[i].length; j++) {
         let x = i * pixelSize + xa, y = j * pixelSize + ya;
