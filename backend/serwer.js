@@ -63,6 +63,7 @@ app.post("/direction", (req, res) => {
     changeDirection(data.nick, data.direction);
   }
 
+  res.send(JSON.stringify({ data: "odpowiedz" }));
   res.status(200).end();
 });
 
