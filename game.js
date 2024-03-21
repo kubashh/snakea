@@ -55,7 +55,7 @@ async function newSnake(nick, color) {
 
 function changeDirection(nick, direction) {
   try {
-    const response = fetch(adress + "/changeDirection", {
+    fetch(adress + "/changeDirection", {
       method: "POST",
       body: JSON.stringify({
         nick: nick,
@@ -65,10 +65,6 @@ function changeDirection(nick, direction) {
         "Content-Type": "application/json"
       }
     });
-
-    if(!response.ok) {
-      throw new Error(`Błąd zapytania: ${response.status} ${response.statusText}`);
-    }
   } catch(error) {
     console.error("Błąd podczas wykonywania żądania:", error);
   }
