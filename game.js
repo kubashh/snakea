@@ -105,7 +105,7 @@ async function draw() {
 
     const rjson = await response.json();
 
-    if(!rjson) {
+    if(rjson.head == null) {
       addMenu();
       return;
     }

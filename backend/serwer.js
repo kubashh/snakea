@@ -44,7 +44,7 @@ app.post("/newSnake", (req, res) => {
 app.post("/board", (req, res) => {
   let data = req.body;
   let snake = getSnakeByNick(data.nick);
-  let head = { x: 0, y: 0 };
+  let head = null;
   if(snake) {
     head = snake.body[snake.body.length - 1];
   }
