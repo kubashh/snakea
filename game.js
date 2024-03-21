@@ -9,7 +9,6 @@ ctx.fillStyle = "black";
 ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
 
 const pixelSize = 40;
-const mapSize = 50;
 
 let renderLoop = setInterval(() => { }, 1000);
 clearInterval(renderLoop);

@@ -177,7 +177,9 @@ function update() {
 }
 
 function generateApple() {
-  apples.push(freePos());
+  if(apples.length < mapSize / 6) {
+    apples.push(freePos());
+  }
 }
 
 function chance(a) {
