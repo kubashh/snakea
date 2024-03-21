@@ -202,8 +202,12 @@ function changeDirection(nick, direction) {
   }
 }
 
+function randInt(a, b) {
+  return Math.floor(a + Math.random() * Math.floor(b - a));
+}
+
 function freePos() {
-  let pos = { x: Math.floor(Math.random() *  Math.floor(mapSize)), y: Math.floor(Math.random() *  Math.floor(mapSize)) };
+  let pos = { x: randInt(3, mapSize - 3), y: randInt(3, mapSize - 3) };
   
   let b = true;
   while(b) {
@@ -211,14 +215,14 @@ function freePos() {
     for(let snake of snakes) {
       for(let snakebody of snake.body) {
         if(pos.x == snakebody.x && pos.y == snakebody.y) {
-          pos = { x: Math.floor(Math.random() *  Math.floor(mapSize)), y: Math.floor(Math.random() *  Math.floor(mapSize)) };
+          pos = { x: randInt(3, mapSize - 3), y: randInt(3, mapSize - 3) };
           b = true;
         }
       }
     }
     for(let apple of apples) {
       if(pos.x == apple.x && pos.y == apple.y) {
-        pos = { x: Math.floor(Math.random() *  Math.floor(mapSize)), y: Math.floor(Math.random() *  Math.floor(mapSize)) };
+        pos = { x: randInt(3, mapSize - 3), y: randInt(3, mapSize - 3) };
         b = true;
       }
     }

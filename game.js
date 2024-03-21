@@ -114,10 +114,10 @@ function draw() {
 
     let w = window.innerWidth, h = window.innerHeight;
     drawBox(0, 0, w, h, "#008");
-    for (let i = 0; i < board.length; i++) {
-      for (let j = 0; j < board[i].length; j++) {
+    for(let i = 0; i < board.length; i++) {
+      for(let j = 0; j < board[i].length; j++) {
         let x = i * pixelSize + xa, y = j * pixelSize + ya;
-        if (0 < x < h && 0 < y < w) {
+        if(0 < x < h && 0 < y < w) {
           drawBox(x, y, pixelSize, pixelSize, board[i][j]);
         }
       }
@@ -194,7 +194,7 @@ function canStartGame() {
 function startNewGame() {
   changeScene("game");
   newSnake(nick, color);
-  let maxfps = 10;
+  let maxfps = 60;
   renderLoop = setInterval(render, 1000 / maxfps);
 
   document.addEventListener('keydown', (event) => {
