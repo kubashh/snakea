@@ -61,8 +61,6 @@ function changeDirection(nick, direction) {
 function changeScene(place) {
   switch(place) {
     case "menu":
-      nick = document.getElementById("nick").value;
-      color = document.getElementById("color").value;
       inGame = false;
       addMenu();
       break;
@@ -164,6 +162,7 @@ async function addMenu() {
   clear();
 
   let message = document.createElement('div');
+  message.id = "message";
   if(serwerWork) {
     message.textContent = "Connect to serwer";
     message.style.color = "white";
@@ -249,14 +248,27 @@ function checkConnection() {
   .then(response => {
     if(response.ok) {
       serwerWork = true; // Połączenie udane
-      changeScene("menu");
+      if(inGame) {
+        changeScene("menu");
+      } else {
+        let message = getElementById("message");
+        if(message) {
+          if(serwerWork) {
+            message.textContent = "Connect to serwer";
+            message.style.color = "white";
+          } else {
+            message.textContent = "Connection error";
+            message.style.color = "red";
+          }
+        }
+      }
     } else {
       serwerWork = false; // Połączenie nieudane
     }
   })
   .catch(error => {
-      console.error("Wystąpił błąd: ", error);
       serwerWork = false; // Błąd połączenia
+      console.error("Wystąpił błąd: ", error);
   });
 }
 
