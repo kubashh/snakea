@@ -10,13 +10,15 @@ ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
 
 const pixelSize = 40;
 let serwerWork = false;
-checkConnection();
+serwerWorks();
 
 let renderLoop = setInterval(() => { }, 1000);
 clearInterval(renderLoop);
 
 let nick = "", color = "";
 let inGame = false;
+
+changeScene("menu");
 
 // Inicjacja pełnego ekranu w odpowiedzi na kliknięcie
 document.addEventListener("click", () => {
@@ -59,6 +61,8 @@ function changeDirection(nick, direction) {
 
 
 function changeScene(place) {
+  clear();
+
   switch(place) {
     case "menu":
       inGame = false;
@@ -162,7 +166,6 @@ async function addMenu() {
   clear();
 
   let message = document.createElement('div');
-  message.id = "message";
   if(serwerWork) {
     message.textContent = "Connect to serwer";
     message.style.color = "white";
@@ -217,7 +220,7 @@ function canStartGame() {
     }*/
     startNewGame();
   } else {
-    checkConnection();
+    serwerWorks();
   }
 }
 
@@ -243,37 +246,24 @@ function startNewGame() {
   });
 }
 
-function checkConnection() {
+function serwerWorks() {
   fetch(adress, { method: "HEAD" })
   .then(response => {
     if(response.ok) {
       serwerWork = true; // Połączenie udane
-      if(inGame) {
-        changeScene("menu");
-      } else {
-        let message = document.getElementById("message");
-        if(message) {
-          if(serwerWork) {
-            message.textContent = "Connect to serwer";
-            message.style.color = "white";
-          } else {
-            message.textContent = "Connection error";
-            message.style.color = "red";
-          }
-        }
-      }
+      addMenu();
     } else {
       serwerWork = false; // Połączenie nieudane
     }
   })
   .catch(error => {
-      serwerWork = false; // Błąd połączenia
       console.error("Wystąpił błąd: ", error);
+      serwerWork = false; // Błąd połączenia
   });
 }
 
 setInterval(() => {
   if(!serwerWork || !inGame) {
-    checkConnection();
+    serwerWorks();
   }
 }, 5000);
