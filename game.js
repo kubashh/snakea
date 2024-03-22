@@ -131,15 +131,15 @@ function draw() {
       }
     }
     
-    let x = 20, y = 50;
-    renderText("Active players: " + rjson.snakesCount, x, y);
-    y += 50;
+    let a = 25;
+    let x = 20;
+    let y = x + a;
+    renderText("Active players: " + rjson.snakesCount, x, y, a);
 
-    console.log(rjson.topTen);
+    x = w - 300;
     for(let top of rjson.topTen) {
-      console.log(top);
-      renderText(top, x, y);
-      y += 30;
+      renderText(top, x, y, a);
+      y += a;
     }
   })
   .catch(error => {
@@ -262,3 +262,9 @@ function serwerWorks() {
       serwerWork = false; // Błąd połączenia
   });
 }
+
+setInterval(() => {
+  if(!serwerWork) {
+    serwerWorks();
+  }
+}, 5000);
