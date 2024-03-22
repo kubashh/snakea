@@ -105,7 +105,7 @@ function draw() {
     return response.json();
   })
   .then(rjson => {
-    if (rjson.head == null) {
+    if(rjson.head == null) {
       addMenu();
       return;
     }
@@ -136,8 +136,8 @@ function draw() {
     renderText("Active players: " + rjson.snakesCount, 20, y, a);
 
     for(let top of rjson.topTen) {
-      renderText(top.nick, w - 300, y, a, top.color);
-      renderText(top.score, w - 100, y, a, top.color);
+      renderText(top.nick, w - 340, y, a, top.color);
+      renderText(top.score, w - 60, y, a, top.color);
       y += a;
     }
   })
@@ -263,7 +263,7 @@ function serwerWorks() {
 }
 
 setInterval(() => {
-  if(!serwerWork) {
+  if(!serwerWork || !inGame) {
     serwerWorks();
   }
 }, 5000);
