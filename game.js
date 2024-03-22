@@ -166,6 +166,7 @@ async function addMenu() {
   clear();
 
   let message = document.createElement('div');
+  message.id = "message";
   if(serwerWork) {
     message.textContent = "Connect to serwer";
     message.style.color = "white";
@@ -253,6 +254,17 @@ function checkConnection() {
       serwerWork = true; // Połączenie udane
       if(inGame) {
         addMenu();
+      } else {
+        let message = document.getElementById("message");
+        if(message) {
+          if(serwerWork) {
+            message.textContent = "Connect to serwer";
+            message.style.color = "white";
+          } else {
+            message.textContent = "Connection error";
+            message.style.color = "red";
+          }
+        }
       }
     } else {
       serwerWork = false; // Połączenie nieudane
