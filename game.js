@@ -219,13 +219,11 @@ function startNewGame() {
 }
 
 function serwerWorks() {
-  let isTrue = false;
-  fetch(adress)
-  .then(response => {
-    if(response.ok) {
-      isTrue = true;
-    }
-  })
+  try {
+    fetch(adress);
+  } catch(error) {
+    return false;
+  }
   
-  return isTrue;
+  return true;
 }
