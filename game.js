@@ -45,7 +45,7 @@ function newSnake(nick, color) {
 }
 
 
-function changeDirection(nick, direction) {
+function changeDirection(direction) {
   fetch(adress + "/direction", {
     method: "POST",
     body: JSON.stringify({
@@ -233,13 +233,13 @@ function startNewGame() {
     if(inGame) {
       let a = event.key;
       if(a == "ArrowUp" || a == "w" || a == "W") {
-        changeDirection(nick, 0);
+        changeDirection(0);
       } else if(a == "ArrowLeft" || a == "a" || a == "A") {
-        changeDirection(nick, 1);
+        changeDirection(1);
       } else if(a == "ArrowDown" || a == "s" || a == "S") {
-        changeDirection(nick, 2);
+        changeDirection(2);
       } else if(a == "ArrowRight" || a == "d" || a == "D") {
-        changeDirection(nick, 3);
+        changeDirection(3);
       }
     }
   });

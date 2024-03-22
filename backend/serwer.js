@@ -15,14 +15,11 @@ app.use((req, res, next) => {
 
 
 app.get("/", (req, res) => {
-  //console.log(req.body);
   res.send(JSON.stringify({ data: "serwer works" }));
 });
 
 
 app.post("/", (req, res) => {
-  //console.log(req.body);
-
   res.status(200).end();
 });
 
@@ -33,9 +30,6 @@ app.post("/newSnake", (req, res) => {
   if(isGoodNewSnakeData(data.nick, data.color)) {
     new Snake(data.nick, data.color);
   }
-
-  console.log("snakes: ", snakes);
-  //console.log("apples: ", apples);
 
   res.send(JSON.stringify({ data: "odpowiedz" }));
   res.status(200).end();
@@ -73,7 +67,6 @@ app.post("/direction", (req, res) => {
 app.listen(port, () => {
   console.log(`Aplikacja wystartowała na porcie ${port}`);
 });
-
 
 
 
