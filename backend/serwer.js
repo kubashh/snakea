@@ -78,7 +78,7 @@ app.listen(port, () => {
 
 
 
-const mapSize = 60;
+const mapSize = 70;
 let board = Array.from({ length: mapSize }, () => Array(mapSize).fill("black"));
 let snakes = [];
 let apples = [];
@@ -283,7 +283,7 @@ function topTen() {
   let array = [];
   let i = 0;
   for(let snake of snakes) {
-    array[i] = i + ". " + snake.body.length + " " + snake.name;
+    array.push(i + ". " + snake.body.length + " " + snake.name);
     i++;
   }
 
