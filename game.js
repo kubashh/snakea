@@ -251,7 +251,7 @@ function checkConnection() {
       if(inGame) {
         changeScene("menu");
       } else {
-        let message = getElementById("message");
+        let message = document.getElementById("message");
         if(message) {
           if(serwerWork) {
             message.textContent = "Connect to serwer";
