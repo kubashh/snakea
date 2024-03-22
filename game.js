@@ -247,6 +247,19 @@ function startNewGame() {
   });
 }
 
+function reloadMessage() {
+  let message = document.getElementById("message");
+  if(message) {
+    if(serwerWork) {
+      message.textContent = "Connect to serwer";
+      message.style.color = "white";
+    } else {
+      message.textContent = "Connection error";
+      message.style.color = "red";
+    }
+  }
+}
+
 function checkConnection() {
   fetch(adress, { method: "HEAD" })
   .then(response => {
@@ -254,25 +267,17 @@ function checkConnection() {
       serwerWork = true; // Połączenie udane
       if(inGame) {
         addMenu();
-      } else {
-        let message = document.getElementById("message");
-        if(message) {
-          if(serwerWork) {
-            message.textContent = "Connect to serwer";
-            message.style.color = "white";
-          } else {
-            message.textContent = "Connection error";
-            message.style.color = "red";
-          }
-        }
       }
+      reloadMessage();
     } else {
       serwerWork = false; // Połączenie nieudane
+      reloadMessage();
     }
   })
   .catch(error => {
-      console.error("Wystąpił błąd: ", error);
-      serwerWork = false; // Błąd połączenia
+    serwerWork = false; // Błąd połączenia
+    reloadMessage();
+    console.error("Wystąpił błąd: ", error);
   });
 }
 
