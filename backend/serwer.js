@@ -54,7 +54,7 @@ app.post("/board", (req, res) => {
     head: head,
     snakes: snakes,
     snakesCount: snakes.length,
-    topTen: topTen()
+    topTen: topTen
   }));
   res.status(200).end();
 });
@@ -78,10 +78,11 @@ app.listen(port, () => {
 
 
 
-const mapSize = 70;
+const mapSize = 80;
 let board = Array.from({ length: mapSize }, () => Array(mapSize).fill("black"));
 let snakes = [];
 let apples = [];
+let topTen = [];
 
 
 
@@ -188,6 +189,8 @@ function update() {
   for(let apple of apples) {
     board[apple.x][apple.y] = "yellow";
   }
+  
+  updateTopTen();
 }
 
 function generateApple() {
@@ -279,11 +282,11 @@ function isGoodColor(color) {
 }
 
 
-function topTen() {
-  let array = [];
+function updateTopTen() {
+  topTen = [];
   let i = 1;
   for(let snake of snakes) {
-    array.push({
+    topTen.push({
       nick: "#" + i + "   " + snake.nick,
       score: snake.body.length,
       color: snake.color
