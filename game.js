@@ -126,13 +126,17 @@ function draw() {
     }
 
     for(let snake of rjson.snakes) {
-      renderText(snake.nick, xa + (snake.body[snake.body.length - 1].x - 0.5) * pixelSize, ya + (snake.body[snake.body.length - 1].y - 0.5) * pixelSize);
+      let x = xa + (snake.body[snake.body.length - 1].x - 0.5) * pixelSize, y = ya + (snake.body[snake.body.length - 1].y - 0.5) * pixelSize;
+      if(0 < x < h && 0 < y < w) {
+        renderText(snake.nick, x, y);
+      }
     }
     
     let x = 20, y = 50;
     renderText("Active players: " + rjson.snakesCount, x, y);
     y += 50;
 
+    console.log(rjson.topTen);
     for(let top in rjson.topTen) {
       renderText(top, x, y);
       y += 30;
