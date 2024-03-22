@@ -114,9 +114,11 @@ class Snake {
       return;
     }
     for(let snake of snakes) {
-      if(snake.x == this.head().x && snake.x == this.head().y) {
-        snakes.splice(snakes.indexOf(this), 1);
-        return;
+      if(snake != this) {
+        if(snake.x == this.head().x && snake.x == this.head().y) {
+          snakes.splice(snakes.indexOf(this), 1);
+          return;
+        }
       }
     }
     this.body.push(next);

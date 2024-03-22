@@ -156,7 +156,8 @@ function addMenu() {
 
   if(!serwerWork) {
     let message = document.createElement('p');
-    message.textContent = "Start game";
+    message.textContent = "Connection error";
+    message.style.color = "red";
     div.appendChild(message);
   }
 
