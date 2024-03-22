@@ -153,6 +153,7 @@ async function addMenu() {
 
   let message = document.createElement('p');
   await serwerWorks();
+  console.log("serwerWork: ", serwerWork);
   if(serwerWork) {
     message.textContent = "Connect to serwer";
     message.style.color = "white";
