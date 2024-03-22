@@ -129,12 +129,13 @@ function draw() {
       renderText(snake.nick, xa + (snake.body[snake.body.length - 1].x - 0.5) * pixelSize, ya + (snake.body[snake.body.length - 1].y - 0.5) * pixelSize);
     }
     
-    let x = 20, y = 100;
+    let x = 20, y = 50;
     renderText("Active players: " + rjson.snakesCount, x, y);
+    y += 50;
 
     for(let top in rjson.topTen) {
       renderText(top, x, y);
-      y += 80;
+      y += 30;
     }
   })
   .catch(error => {
