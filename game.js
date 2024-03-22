@@ -9,7 +9,8 @@ ctx.fillStyle = "black";
 ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
 
 const pixelSize = 40;
-let serwerWork = false; serwerWorks();
+let serwerWork = false;
+await serwerWorks();
 
 let renderLoop = setInterval(() => { }, 1000);
 clearInterval(renderLoop);
@@ -154,12 +155,15 @@ function addMenu() {
   let div = document.createElement('form');
   div.id = "menuForm";
 
-  if(!serwerWork) {
-    let message = document.createElement('p');
+  let message = document.createElement('p');
+  if(serwerWork) {
+    message.textContent = "Connect to serwer";
+    message.style.color = "white";
+  } else {
     message.textContent = "Connection error";
     message.style.color = "red";
-    div.appendChild(message);
   }
+  div.appendChild(message);
 
   let input = document.createElement('input');
   input.type = "text";
