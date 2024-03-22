@@ -188,8 +188,6 @@ async function addMenu() {
   div.appendChild(button);
 
   div.addEventListener("submit", (event) => {
-    event.preventDefault(); // Zapobiega domyślnej akcji przesłania formularza (czyli przeładowaniu strony)
-  
     // Wywołuje funkcję obsługującą akcję formularza
     canStartGame();
   });
