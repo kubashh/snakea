@@ -136,7 +136,7 @@ function draw() {
     y += 50;
 
     console.log(rjson.topTen);
-    for(let top in rjson.topTen) {
+    for(let top of rjson.topTen) {
       console.log(top);
       renderText(top, x, y);
       y += 30;
