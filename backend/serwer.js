@@ -31,13 +31,12 @@ app.post("/newSnake", (req, res) => {
     new Snake(data.nick, data.color);
   }
 
-  res.send(JSON.stringify({ data: "odpowiedz" }));
+  res.send("good");
   res.status(200).end();
 });
 
 app.post("/board", (req, res) => {
-  let data = req.body;
-  let snake = getSnakeByNick(data.nick);
+  let snake = getSnakeByNick(req.body.nick);
   let head = null;
   if(snake) {
     head = snake.head();
@@ -59,7 +58,7 @@ app.post("/direction", (req, res) => {
     changeDirection(data.nick, data.direction);
   }
 
-  res.send(JSON.stringify({ data: "odpowiedz" }));
+  res.send("good");
   res.status(200).end();
 });
 
@@ -72,7 +71,7 @@ app.listen(port, () => {
 
 
 const mapSize = 80;
-let board = Array.from({ length: mapSize }, () => Array(mapSize).fill("black"));
+let board = [ [ "black" ] ];
 let snakes = [];
 let apples = [];
 let topTen = [];
@@ -160,8 +159,6 @@ class Snake {
 }
 
 
-
-setInterval(update, 100);
 
 function update() {
   for(let snake of snakes) {
@@ -289,3 +286,6 @@ function updateTopTen() {
     i++;
   }
 }
+
+
+setInterval(update, 120);
