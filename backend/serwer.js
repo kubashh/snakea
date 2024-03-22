@@ -110,13 +110,13 @@ class Snake {
         break;
     }
     if(next.x < 0 || next.y < 0 || next.x >= mapSize || next.y >= mapSize) {
-      snakes.shift(this);
+      snakes.splice(snakes.indexOf(this), 1);
       return;
     }
     this.body.push(next);
     for(let apple of apples) {
       if(next.x == apple.x && next.y == apple.y) {
-        apples.shift(apple);
+        apples.splice(apples.indexOf(apple), 1);
         return;
       }
     }

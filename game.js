@@ -218,7 +218,7 @@ function startNewGame() {
   });
 }
 
-function serwerWorks() {
+async function serwerWorks() {
   return fetch(adress, { method: "HEAD" })
   .then(response => {
       if (response.ok) {
