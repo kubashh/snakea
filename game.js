@@ -152,7 +152,7 @@ function renderText(s, x, y, fontSize = 30, color = "white") {
 async function addMenu() {
   clear();
 
-  let message = document.createElement('p');
+  let message = document.createElement('div');
   if(serwerWork) {
     message.textContent = "Connect to serwer";
     message.style.color = "white";
@@ -185,12 +185,10 @@ async function addMenu() {
   button.textContent = "Start game";
   button.id = "menuButton";
   button.type = "submit";
-  div.appendChild(button);
-
-  div.addEventListener("submit", (event) => {
-    // Wywołuje funkcję obsługującą akcję formularza
+  button.addEventListener("click", () => {
     canStartGame();
-  });
+  })
+  div.appendChild(button);
 
   document.body.appendChild(div);
 }
