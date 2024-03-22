@@ -293,6 +293,4 @@ function updateTopTen() {
     });
     i++;
   }
-
-  return array;
 }
