@@ -10,7 +10,7 @@ ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
 
 const pixelSize = 40;
 let serwerWork = false;
-serwerWorks();
+checkConnection();
 
 let renderLoop = setInterval(() => { }, 1000);
 clearInterval(renderLoop);
@@ -220,7 +220,7 @@ function canStartGame() {
     }*/
     startNewGame();
   } else {
-    serwerWorks();
+    checkConnection();
   }
 }
 
@@ -246,12 +246,14 @@ function startNewGame() {
   });
 }
 
-function serwerWorks() {
+function checkConnection() {
   fetch(adress, { method: "HEAD" })
   .then(response => {
     if(response.ok) {
       serwerWork = true; // Połączenie udane
-      addMenu();
+      if(inGame) {
+        addMenu();
+      }
     } else {
       serwerWork = false; // Połączenie nieudane
     }
@@ -264,6 +266,6 @@ function serwerWorks() {
 
 setInterval(() => {
   if(!serwerWork || !inGame) {
-    serwerWorks();
+    checkConnection();
   }
 }, 5000);
