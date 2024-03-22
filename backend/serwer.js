@@ -160,31 +160,6 @@ class Snake {
 
 
 
-function update() {
-  for(let snake of snakes) {
-    snake.move();
-  }
-
-  if(chance(0.06)) {
-    generateApple();
-  }
-
-  // odswierzanie planszy
-  board = Array.from({ length: mapSize }, () => Array(mapSize).fill("black"));
-
-  for(let snake of snakes) {
-    for(let bodyElement of snake.body) {
-      board[bodyElement.x][bodyElement.y] = snake.color;
-    }
-  }
-  
-  for(let apple of apples) {
-    board[apple.x][apple.y] = "yellow";
-  }
-  
-  updateTopTen();
-}
-
 function generateApple() {
   if(apples.length < mapSize / 6) {
     apples.push(freePos(3));
@@ -288,4 +263,33 @@ function updateTopTen() {
 }
 
 
-setInterval(update, 120);
+let timer = new Date();
+
+function update() {
+  for(let snake of snakes) {
+    snake.move();
+  }
+
+  if(chance(0.06)) {
+    generateApple();
+  }
+
+  // odswierzanie planszy
+  board = Array.from({ length: mapSize }, () => Array(mapSize).fill("black"));
+
+  for(let snake of snakes) {
+    for(let bodyElement of snake.body) {
+      board[bodyElement.x][bodyElement.y] = snake.color;
+    }
+  }
+  
+  for(let apple of apples) {
+    board[apple.x][apple.y] = "yellow";
+  }
+  
+  updateTopTen();
+
+  console.log(timer);
+}
+
+setInterval(update, 100);
