@@ -46,7 +46,7 @@ app.post("/board", (req, res) => {
   let snake = getSnakeByNick(data.nick);
   let head = null;
   if(snake) {
-    head = snake.body[snake.body.length - 1];
+    head = snake.head();
   }
   res.send(JSON.stringify({
     board: board,
@@ -113,6 +113,12 @@ class Snake {
       snakes.splice(snakes.indexOf(this), 1);
       return;
     }
+    for(let snake of snakes) {
+      if(snake.x == this.head().x && snake.x == this.head().y) {
+        snakes.splice(snakes.indexOf(this), 1);
+        return;
+      }
+    }
     this.body.push(next);
     for(let apple of apples) {
       if(next.x == apple.x && next.y == apple.y) {
@@ -123,25 +129,29 @@ class Snake {
     this.body.shift();
   }
 
+  head = () => {
+    return this.body(this.body - 1);
+  }
+
   changeDirection = (a) => {
     switch(a) {
       case 0:
-        if(this.body[this.body.length - 2].y != this.body[this.body.length - 1].y - 1) {
+        if(this.body[this.body.length - 2].y != this.head().y - 1) {
           this.direction = a;
         }
         break;
       case 1:
-        if(this.body[this.body.length - 2].x != this.body[this.body.length - 1].x - 1) {
+        if(this.body[this.body.length - 2].x != this.head().x - 1) {
           this.direction = a;
         }
         break;
       case 2:
-        if(this.body[this.body.length - 2].y != this.body[this.body.length - 1].y + 1) {
+        if(this.body[this.body.length - 2].y != this.head().y + 1) {
           this.direction = a;
         }
         break;
       case 3:
-        if(this.body[this.body.length - 2].x != this.body[this.body.length - 1].x + 1) {
+        if(this.body[this.body.length - 2].x != this.head().x + 1) {
           this.direction = a;
         }
         break;

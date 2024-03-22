@@ -9,6 +9,7 @@ ctx.fillStyle = "black";
 ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
 
 const pixelSize = 40;
+let serwerWork = false; serwerWorks();
 
 let renderLoop = setInterval(() => { }, 1000);
 clearInterval(renderLoop);
@@ -153,7 +154,7 @@ function addMenu() {
   let div = document.createElement('form');
   div.id = "menuForm";
 
-  if(!serwerWorks()) {
+  if(!serwerWork) {
     let message = document.createElement('p');
     message.textContent = "Start game";
     div.appendChild(message);
@@ -219,16 +220,16 @@ function startNewGame() {
 }
 
 async function serwerWorks() {
-  return fetch(adress, { method: "HEAD" })
+  fetch(adress, { method: "HEAD" })
   .then(response => {
-      if (response.ok) {
-          return true; // Połączenie udane
-      } else {
-          return false; // Połączenie nieudane
-      }
+    if(response.ok) {
+      serwerWork = true; // Połączenie udane
+    } else {
+      serwerWork = false; // Połączenie nieudane
+    }
   })
   .catch(error => {
       console.error("Wystąpił błąd: ", error);
-      return false; // Błąd połączenia
+      serwerWork = false; // Błąd połączenia
   });
 }
