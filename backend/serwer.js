@@ -283,7 +283,11 @@ function topTen() {
   let array = [];
   let i = 1;
   for(let snake of snakes) {
-    array.push("#" + i + "   " + snake.nick + "    " + snake.body.length);
+    array.push({
+      nick: "#" + i + "   " + snake.nick,
+      score: snake.body.length,
+      color: snake.color
+    });
     i++;
   }
 

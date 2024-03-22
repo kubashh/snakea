@@ -132,13 +132,12 @@ function draw() {
     }
     
     let a = 25;
-    let x = 20;
-    let y = x + a;
-    renderText("Active players: " + rjson.snakesCount, x, y, a);
+    let y = 20 + a;
+    renderText("Active players: " + rjson.snakesCount, 20, y, a);
 
-    x = w - 300;
     for(let top of rjson.topTen) {
-      renderText(top, x, y, a);
+      renderText(top.nick, w - 300, y, a, top.color);
+      renderText(top.score, w - 100, y, a, top.color);
       y += a;
     }
   })
