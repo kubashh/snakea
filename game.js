@@ -219,11 +219,16 @@ function startNewGame() {
 }
 
 function serwerWorks() {
-  try {
-    fetch(adress);
-  } catch(error) {
-    return false;
-  }
-  
-  return true;
+  return fetch(adress, { method: "HEAD" })
+  .then(response => {
+      if (response.ok) {
+          return true; // Połączenie udane
+      } else {
+          return false; // Połączenie nieudane
+      }
+  })
+  .catch(error => {
+      console.error("Wystąpił błąd: ", error);
+      return false; // Błąd połączenia
+  });
 }
