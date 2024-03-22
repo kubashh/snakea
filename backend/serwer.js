@@ -130,7 +130,7 @@ class Snake {
   }
 
   head = () => {
-    return this.body(this.body - 1);
+    return this.body[this.body.length - 1];
   }
 
   changeDirection = (a) => {
