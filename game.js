@@ -208,6 +208,7 @@ async function addMenu() {
 }
 
 function canStartGame() {
+  checkConnection();
   if(serwerWork) {
     nick = document.getElementById("nick").value;
     color = document.getElementById("color").value;
@@ -220,8 +221,6 @@ function canStartGame() {
       return;
     }*/
     startNewGame();
-  } else {
-    checkConnection();
   }
 }
 
