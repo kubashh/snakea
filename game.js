@@ -9,8 +9,7 @@ ctx.fillStyle = "black";
 ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
 
 const pixelSize = 40;
-let serwerWork = false;
-await serwerWorks();
+let serwerWork = false; serwerWorks();
 
 let renderLoop = setInterval(() => { }, 1000);
 clearInterval(renderLoop);
@@ -149,13 +148,11 @@ function renderText(s, x, y, fontSize = 30, color = "white") {
   ctx.fillText(s, x, y);
 }
 
-function addMenu() {
+async function addMenu() {
   clear();
-  let body = document.body;
-  let div = document.createElement('form');
-  div.id = "menuForm";
 
   let message = document.createElement('p');
+  await serwerWorks();
   if(serwerWork) {
     message.textContent = "Connect to serwer";
     message.style.color = "white";
@@ -163,7 +160,10 @@ function addMenu() {
     message.textContent = "Connection error";
     message.style.color = "red";
   }
-  div.appendChild(message);
+  document.body.appendChild(message);
+
+  let div = document.createElement('form');
+  div.id = "menuForm";
 
   let input = document.createElement('input');
   input.type = "text";
@@ -185,7 +185,7 @@ function addMenu() {
   button.addEventListener("click", canStartGame);
   div.appendChild(button);
 
-  body.appendChild(div);
+  document.body.appendChild(div);
 }
 
 function canStartGame() {
