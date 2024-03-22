@@ -208,7 +208,6 @@ async function addMenu() {
 }
 
 function canStartGame() {
-  checkConnection();
   if(serwerWork) {
     nick = document.getElementById("nick").value;
     color = document.getElementById("color").value;
@@ -247,14 +246,18 @@ function startNewGame() {
 }
 
 function reloadMessage() {
-  let message = document.getElementById("message");
-  if(message) {
-    if(serwerWork) {
-      message.textContent = "Connect to serwer";
-      message.style.color = "white";
-    } else {
-      message.textContent = "Connection error";
-      message.style.color = "red";
+  if(!serwerWork) {
+    addMenu();
+  } else if(!inGame) {
+    let message = document.getElementById("message");
+    if(message) {
+      if(serwerWork) {
+        message.textContent = "Connect to serwer";
+        message.style.color = "white";
+      } else {
+        message.textContent = "Connection error";
+        message.style.color = "red";
+      }
     }
   }
 }
@@ -264,14 +267,10 @@ function checkConnection() {
   .then(response => {
     if(response.ok) {
       serwerWork = true; // Połączenie udane
-      if(inGame) {
-        addMenu();
-      }
-      reloadMessage();
     } else {
       serwerWork = false; // Połączenie nieudane
-      reloadMessage();
     }
+    reloadMessage();
   })
   .catch(error => {
     serwerWork = false; // Błąd połączenia
@@ -280,8 +279,4 @@ function checkConnection() {
   });
 }
 
-setInterval(() => {
-  if(!serwerWork || !inGame) {
-    checkConnection();
-  }
-}, 5000);
+setInterval(checkConnection, 5000);
