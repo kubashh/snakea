@@ -111,9 +111,11 @@ class Snake {
     }
     for(let snake of snakes) {
       if(snake.nick != this.nick) {
-        if(snake.head().x == next.x && snake.head().y == next.y) {
-          snakes.splice(snakes.indexOf(this), 1);
-          return;
+        for(let bodyElement of snake.body) {
+          if(bodyElement.x == next.x && bodyElement.y == next.y) {
+            snakes.splice(snakes.indexOf(this), 1);
+            return;
+          }
         }
       }
     }
