@@ -76,7 +76,6 @@ function changeScene(place) {
 }
 
 function clear() {
-  console.clear();
   clearInterval(renderLoop);
   let body = document.body;
   while(body.firstChild) {
@@ -138,6 +137,7 @@ function draw() {
 
     console.log(rjson.topTen);
     for(let top in rjson.topTen) {
+      console.log(top);
       renderText(top, x, y);
       y += 30;
     }
