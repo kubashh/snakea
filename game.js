@@ -9,12 +9,13 @@ ctx.fillStyle = "black";
 ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
 
 const pixelSize = 40;
-let serwerWork = false; serwerWorks();
+let serwerWork = false;
+serwerWorks();
 
 let renderLoop = setInterval(() => { }, 1000);
 clearInterval(renderLoop);
 
-let nick = "Your nick", color = "red";
+let nick = "", color = "";
 let inGame = false;
 
 changeScene("menu");
@@ -152,7 +153,6 @@ async function addMenu() {
   clear();
 
   let message = document.createElement('p');
-  console.log("serwerWork: ", serwerWork);
   if(serwerWork) {
     message.textContent = "Connect to serwer";
     message.style.color = "white";
@@ -205,7 +205,6 @@ function canStartGame() {
 }
 
 function startNewGame() {
-  serwerWorks();
   changeScene("game");
   newSnake(nick, color);
   let maxfps = 60;
@@ -227,7 +226,7 @@ function startNewGame() {
   });
 }
 
-async function serwerWorks() {
+function serwerWorks() {
   fetch(adress, { method: "HEAD" })
   .then(response => {
     if(response.ok) {
