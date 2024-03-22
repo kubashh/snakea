@@ -263,7 +263,7 @@ function updateTopTen() {
 }
 
 
-let timer = new Date();
+let lastTime = new Date();
 
 function update() {
   for(let snake of snakes) {
@@ -288,6 +288,10 @@ function update() {
   }
   
   updateTopTen();
+
+  let now = new Date();
+  let timer = now - lastTime;
+  lastTime = now;
 
   console.log(timer);
 }
