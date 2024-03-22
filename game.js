@@ -184,24 +184,35 @@ async function addMenu() {
   let button = document.createElement('div');
   button.textContent = "Start game";
   button.id = "menuButton";
-  button.addEventListener("click", canStartGame);
+  button.type = "submit";
   div.appendChild(button);
+
+  div.addEventListener("submit", (event) => {
+    event.preventDefault(); // Zapobiega domyślnej akcji przesłania formularza (czyli przeładowaniu strony)
+  
+    // Wywołuje funkcję obsługującą akcję formularza
+    canStartGame();
+  });
 
   document.body.appendChild(div);
 }
 
 function canStartGame() {
-  nick = document.getElementById("nick").value;
-  color = document.getElementById("color").value;
-  /*if(backend.getSnakeByNick(nick)) {
-    alert("Color is not free");
-    return;
+  if(serwerWork) {
+    nick = document.getElementById("nick").value;
+    color = document.getElementById("color").value;
+    /*if(backend.getSnakeByNick(nick)) {
+      alert("Color is not free");
+      return;
+    }
+    if(!backend.isColorFree(color)) {
+      alert("Color is not free");
+      return;
+    }*/
+    startNewGame();
+  } else {
+    serwerWorks();
   }
-  if(!backend.isColorFree(color)) {
-    alert("Color is not free");
-    return;
-  }*/
-  startNewGame();
 }
 
 function startNewGame() {
