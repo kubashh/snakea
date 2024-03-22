@@ -225,6 +225,8 @@ function canStartGame() {
 }
 
 function startNewGame() {
+  nick = document.getElementById("nick").value;
+  color = document.getElementById("color").value;
   changeScene("game");
   newSnake(nick, color);
   let maxfps = 60;
