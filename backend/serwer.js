@@ -52,7 +52,9 @@ app.post("/board", (req, res) => {
     board: board,
     mapSize: mapSize,
     head: head,
-    snakes: snakes
+    snakes: snakes,
+    snakesCount: snakes.length,
+    topTen: topTen()
   }));
   res.status(200).end();
 });
@@ -274,4 +276,16 @@ function isGoodColor(color) {
   }
 
   return true;
+}
+
+
+function topTen() {
+  let array = [];
+  let i = 0;
+  for(let snake of snakes) {
+    array[i] = i + ". " + snake.body.length + " " + snake.name;
+    i++;
+  }
+
+  return array;
 }
