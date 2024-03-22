@@ -111,7 +111,7 @@ class Snake {
     }
     for(let snake of snakes) {
       if(snake != this) {
-        if(snake.x == next.x && snake.x == next.y) {
+        if(snake.x == next.x && snake.y == next.y) {
           snakes.splice(snakes.indexOf(this), 1);
           return;
         }
