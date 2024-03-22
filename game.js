@@ -152,7 +152,6 @@ async function addMenu() {
   clear();
 
   let message = document.createElement('p');
-  await serwerWorks();
   console.log("serwerWork: ", serwerWork);
   if(serwerWork) {
     message.textContent = "Connect to serwer";
@@ -169,6 +168,7 @@ async function addMenu() {
   let input = document.createElement('input');
   input.type = "text";
   input.id = "nick";
+  input.value = nick;
   input.minlength = 3;
   input.placeholder = "Enter your nick";
   div.appendChild(input);
@@ -176,6 +176,7 @@ async function addMenu() {
   input = document.createElement('input');
   input.type = "text";
   input.id = "color";
+  input.value = color;
   input.minlength = 3;
   input.placeholder = "Enter your color";
   div.appendChild(input);
@@ -204,6 +205,7 @@ function canStartGame() {
 }
 
 function startNewGame() {
+  serwerWorks();
   changeScene("game");
   newSnake(nick, color);
   let maxfps = 60;
@@ -230,6 +232,7 @@ async function serwerWorks() {
   .then(response => {
     if(response.ok) {
       serwerWork = true; // Połączenie udane
+      addMenu();
     } else {
       serwerWork = false; // Połączenie nieudane
     }
