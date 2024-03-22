@@ -97,7 +97,7 @@ function draw() {
     }
   })
   .then(response => {
-    if (!response.ok) {
+    if(!response.ok) {
       throw new Error(`Błąd zapytania: ${response.status} ${response.statusText}`);
     }
     return response.json();
@@ -152,6 +152,12 @@ function addMenu() {
   let body = document.body;
   let div = document.createElement('form');
   div.id = "menuForm";
+
+  if(!serwerWorks()) {
+    let message = document.createElement('p');
+    message.textContent = "Start game";
+    div.appendChild(message);
+  }
 
   let input = document.createElement('input');
   input.type = "text";
@@ -210,4 +216,16 @@ function startNewGame() {
       }
     }
   });
+}
+
+function serwerWorks() {
+  let isTrue = false;
+  fetch(adress)
+  .then(response => {
+    if(response.ok) {
+      isTrue = true;
+    }
+  })
+  
+  return isTrue;
 }

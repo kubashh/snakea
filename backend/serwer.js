@@ -16,7 +16,7 @@ app.use((req, res, next) => {
 
 app.get("/", (req, res) => {
   //console.log(req.body);
-  res.send(JSON.stringify({ data: "odpowiedz" }));
+  res.send(JSON.stringify({ data: "serwer works" }));
 });
 
 
