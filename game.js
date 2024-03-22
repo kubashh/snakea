@@ -10,15 +10,13 @@ ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
 
 const pixelSize = 40;
 let serwerWork = false;
-serwerWorks();
+checkConnection();
 
 let renderLoop = setInterval(() => { }, 1000);
 clearInterval(renderLoop);
 
 let nick = "", color = "";
 let inGame = false;
-
-changeScene("menu");
 
 // Inicjacja pełnego ekranu w odpowiedzi na kliknięcie
 document.addEventListener("click", () => {
@@ -61,10 +59,10 @@ function changeDirection(nick, direction) {
 
 
 function changeScene(place) {
-  clear();
-
   switch(place) {
     case "menu":
+      nick = document.getElementById("nick").value;
+      color = document.getElementById("color").value;
       inGame = false;
       addMenu();
       break;
@@ -220,13 +218,11 @@ function canStartGame() {
     }*/
     startNewGame();
   } else {
-    serwerWorks();
+    checkConnection();
   }
 }
 
 function startNewGame() {
-  nick = document.getElementById("nick").value;
-  color = document.getElementById("color").value;
   changeScene("game");
   newSnake(nick, color);
   let maxfps = 60;
@@ -248,12 +244,12 @@ function startNewGame() {
   });
 }
 
-function serwerWorks() {
+function checkConnection() {
   fetch(adress, { method: "HEAD" })
   .then(response => {
     if(response.ok) {
       serwerWork = true; // Połączenie udane
-      addMenu();
+      changeScene("menu");
     } else {
       serwerWork = false; // Połączenie nieudane
     }
@@ -266,6 +262,6 @@ function serwerWorks() {
 
 setInterval(() => {
   if(!serwerWork || !inGame) {
-    serwerWorks();
+    checkConnection();
   }
 }, 5000);
