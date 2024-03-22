@@ -283,7 +283,7 @@ function topTen() {
   let array = [];
   let i = 1;
   for(let snake of snakes) {
-    array.push(i.toString() + ". " + snake.body.length.toString() + " " + snake.name.toString());
+    array.push(i + ". " + snake.body.length + " " + snake.name);
     i++;
   }
 
