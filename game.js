@@ -17,14 +17,16 @@ clearInterval(renderLoop);
 
 let nick = "", color = "";
 let inGame = false;
+let maxfps = 60;
 
 changeScene("menu");
 
 
 
 socket.onopen = (event) => {
-  connected = true;
   console.log("WebSocket connection opened");
+  connected = true;
+  changeScene("menu");
 };
 
 socket.onmessage = (event) => {
@@ -97,6 +99,13 @@ document.addEventListener('keydown', (event) => {
     }
   }
 });
+
+
+setInterval(() => {
+  if(inGame) {
+    render();
+  }
+}, 1000 / maxfps);
 
 
 
@@ -227,15 +236,8 @@ function canStartGame() {
       alert("Color is not free");
       return;
     }*/
-    startNewGame();
+    newSnake();
   }
-}
-
-function startNewGame() {
-  changeScene("game");
-  newSnake();
-  let maxfps = 60;
-  setInterval(render, 1000 / maxfps);
 }
 
 function reloadMessage() {
