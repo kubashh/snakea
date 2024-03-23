@@ -57,9 +57,9 @@ socket.onerror = (error) => {
   console.error("Error with WebSocket: ", error);
 };
 
-setInterval(() => {
+/*setInterval(() => {
   socket.send(JSON.stringify({ type: "test" }));
-}, 1000);
+}, 1000);*/
 
 
 
@@ -73,7 +73,7 @@ ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
 
 const pixelSize = 40;
 let serwerWork = true;
-checkConnection();
+//checkConnection();
 
 let renderLoop = setInterval(() => { }, 1000);
 clearInterval(renderLoop);
@@ -117,7 +117,7 @@ function changeDirection(direction) {
   socket.send(JSON.stringify({
     type: "direction",
     nick: nick,
-    color: direction
+    direction: direction
   }));
   /*fetch(adress + "/direction", {
     method: "POST",
@@ -355,4 +355,4 @@ function checkConnection() {
   });*/
 }
 
-setInterval(checkConnection, 4000);
+//setInterval(checkConnection, 4000);
