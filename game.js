@@ -62,8 +62,13 @@ document.addEventListener("click", () => {
 
 
 
-function newSnake(nick, color) {
-  fetch(adress + "/newSnake", {
+function newSnake() {
+  socket.send(JSON.stringify({
+    type: "newSnake",
+    nick: nick,
+    color: color
+  }));
+  /*fetch(adress + "/newSnake", {
     method: "POST",
     body: JSON.stringify({
       nick: nick,
@@ -72,12 +77,17 @@ function newSnake(nick, color) {
     headers: {
       "Content-Type": "application/json"
     }
-  });
+  });*/
 }
 
 
 function changeDirection(direction) {
-  fetch(adress + "/direction", {
+  socket.send(JSON.stringify({
+    type: "direction",
+    nick: nick,
+    color: direction
+  }));
+  /*fetch(adress + "/direction", {
     method: "POST",
     body: JSON.stringify({
       nick: nick,
@@ -86,7 +96,7 @@ function changeDirection(direction) {
     headers: {
       "Content-Type": "application/json"
     }
-  });
+  });*/
 }
 
 
@@ -120,7 +130,7 @@ function addCanvas() {
 }
 
 function draw() {
-  fetch(adress + "/board", {
+  /*fetch(adress + "/board", {
     method: "POST",
     body: JSON.stringify({
       nick: nick
@@ -173,7 +183,7 @@ function draw() {
   })
   .catch(error => {
     console.error("Błąd podczas wykonywania żądania:", error);
-  });
+  });*/
 }
 
 function render() {
@@ -255,7 +265,7 @@ function canStartGame() {
 
 function startNewGame() {
   changeScene("game");
-  newSnake(nick, color);
+  newSnake();
   let maxfps = 60;
   renderLoop = setInterval(render, 1000 / maxfps);
 
@@ -293,7 +303,7 @@ function reloadMessage() {
 }
 
 function checkConnection() {
-  fetch(adress, { method: "HEAD" })
+  /*fetch(adress, { method: "HEAD" })
   .then(response => {
     if(response.ok) {
       serwerWork = true; // Połączenie udane
@@ -306,7 +316,7 @@ function checkConnection() {
     serwerWork = false; // Błąd połączenia
     reloadMessage();
     console.error("Wystąpił błąd: ", error);
-  });
+  });*/
 }
 
 setInterval(checkConnection, 4000);

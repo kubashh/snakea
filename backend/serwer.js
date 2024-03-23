@@ -46,7 +46,7 @@ wss.on("connection", function connection(ws) {
 
 
 
-const express = require("express");
+/*const express = require("express");
 const app = express();
 
 app.use(express.json());
@@ -113,7 +113,7 @@ app.post("/direction", (req, res) => {
 
 app.listen(port, () => {
   console.log(`Aplikacja wystartowała na porcie ${port}`);
-});
+});*/
 
 
 
