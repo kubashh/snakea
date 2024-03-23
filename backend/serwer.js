@@ -1,6 +1,6 @@
 const WebSocket = require('ws');
 
-const wss = new WebSocket.Server({ port: 8080 });
+const wss = new WebSocket.Server({ port: 8880 });
 
 wss.on("connection", function connection(ws) {
   ws.on("message", function incoming(message) {
@@ -45,7 +45,6 @@ wss.on("connection", function connection(ws) {
 
 
 
-
 /*const express = require("express");
 const app = express();
 
@@ -72,8 +71,6 @@ app.post("/", (req, res) => {
 });
 
 app.post("/newSnake", (req, res) => {
-  //console.log(req.body);
-
   let data = req.body;
   if(isGoodNewSnakeData(data.nick, data.color)) {
     new Snake(data.nick, data.color);
@@ -114,7 +111,6 @@ app.post("/direction", (req, res) => {
 app.listen(port, () => {
   console.log(`Aplikacja wystartowała na porcie ${port}`);
 });*/
-
 
 
 

@@ -1,19 +1,13 @@
 const adress = "https://psychic-doodle-jj5vwjj67qqrfq9x6-8888.app.github.dev";
 
-const socket = new WebSocket("wss://psychic-doodle-jj5vwjj67qqrfq9x6-8080.app.github.dev/");
+const socket = new WebSocket("wss://psychic-doodle-jj5vwjj67qqrfq9x6-8880.app.github.dev/");
 
 socket.onopen = (event) => {
   console.log("WebSocket connection opened");
-  socket.send(JSON.stringify({
-    type: "id",
-    nick: nick
-  }));
 };
 
 socket.onmessage = (event) => {
   const data = JSON.parse(event.data);
-  console.log(data);
-  // Obsługa danych otrzymanych od serwera
   switch(data.type) {
     case "snakeSpowned":
       changeScene("game");
@@ -57,10 +51,6 @@ socket.onerror = (error) => {
   console.error("Error with WebSocket: ", error);
 };
 
-/*setInterval(() => {
-  socket.send(JSON.stringify({ type: "test" }));
-}, 1000);*/
-
 
 
 const canvas = document.createElement('canvas');
@@ -72,8 +62,7 @@ ctx.fillStyle = "black";
 ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
 
 const pixelSize = 40;
-let serwerWork = true;
-//checkConnection();
+let connected = true;
 
 let renderLoop = setInterval(() => { }, 1000);
 clearInterval(renderLoop);
@@ -243,7 +232,7 @@ async function addMenu() {
 
   let message = document.createElement('div');
   message.id = "message";
-  if(serwerWork) {
+  if(connected) {
     message.textContent = "Connected to serwer";
     message.style.color = "white";
   } else {
@@ -284,7 +273,7 @@ async function addMenu() {
 }
 
 function canStartGame() {
-  if(serwerWork) {
+  if(connected) {
     nick = document.getElementById("nick").value;
     color = document.getElementById("color").value;
     /*if(backend.getSnakeByNick(nick)) {
@@ -322,12 +311,12 @@ function startNewGame() {
 }
 
 function reloadMessage() {
-  if(!serwerWork) {
+  if(!connected) {
     addMenu();
   } else if(!inGame) {
     let message = document.getElementById("message");
     if(message) {
-      if(serwerWork) {
+      if(connected) {
         message.textContent = "Connected to serwer";
         message.style.color = "white";
       } else {
@@ -338,21 +327,21 @@ function reloadMessage() {
   }
 }
 
-function checkConnection() {
-  /*fetch(adress, { method: "HEAD" })
+/*function checkConnection() {
+  fetch(adress, { method: "HEAD" })
   .then(response => {
     if(response.ok) {
-      serwerWork = true; // Połączenie udane
+      connected = true; // Połączenie udane
     } else {
-      serwerWork = false; // Połączenie nieudane
+      connected = false; // Połączenie nieudane
     }
     reloadMessage();
   })
   .catch(error => {
-    serwerWork = false; // Błąd połączenia
+    connected = false; // Błąd połączenia
     reloadMessage();
     console.error("Wystąpił błąd: ", error);
-  });*/
-}
+  });
+}*/
 
 //setInterval(checkConnection, 4000);
