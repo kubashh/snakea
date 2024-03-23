@@ -38,8 +38,6 @@ wss.on("connection", function connection(ws) {
         }
         break;
     }
-
-    console.log(data);
   });
 });
 

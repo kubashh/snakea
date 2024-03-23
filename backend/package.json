@@ -1,9 +1,6 @@
 {
   "dependencies": {
-    "express": "^4.18.3",
-    "http": "^0.0.1-security",
     "nodejs": "^0.0.0",
-    "socket.io": "^4.7.5",
     "ws": "^8.16.0"
   }
 }
