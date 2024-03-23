@@ -76,6 +76,7 @@ socket.onmessage = (event) => {
 
 socket.onerror = (error) => {
   console.error("Error with WebSocket: ", error);
+  connected = false;
 };
 
 
