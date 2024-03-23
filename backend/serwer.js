@@ -6,10 +6,36 @@ wss.on("connection", function connection(ws) {
   ws.on("message", function incoming(message) {
     let data = JSON.parse(message);
     switch(data.type) {
-      case "id":
+      case "newSnake":
+        if(isGoodNewSnakeData(data.nick, data.color)) {
+          new Snake(data.nick, data.color);
+          ws.send(JSON.stringify({
+            type: "snakeSpowned"
+          }));
+        }
         break;
-      case "test":
-        ws.send(JSON.stringify({ type: "odpowiedz" }));
+      
+      case "board":
+        let snake = getSnakeByNick(data.nick);
+        let head = null;
+        if(snake) {
+          head = snake.head();
+        }
+        ws.send(JSON.stringify({
+          type: "board",
+          board: board,
+          mapSize: mapSize,
+          head: head,
+          snakes: snakes,
+          snakesCount: snakes.length,
+          topTen: topTen
+        }));
+        break;
+
+      case "direction":
+        if(data.nick && data.direction !== undefined) {
+          changeDirection(data.nick, data.direction);
+        }
         break;
     }
 

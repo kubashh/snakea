@@ -2,8 +2,6 @@ const adress = "https://psychic-doodle-jj5vwjj67qqrfq9x6-8888.app.github.dev";
 
 const socket = new WebSocket("wss://psychic-doodle-jj5vwjj67qqrfq9x6-8080.app.github.dev/");
 
-let mydiv = document.getElementById("mydiv");
-
 socket.onopen = (event) => {
   console.log("WebSocket connection opened");
   socket.send(JSON.stringify({
@@ -14,12 +12,13 @@ socket.onopen = (event) => {
 
 socket.onmessage = (event) => {
   const data = JSON.parse(event.data);
+  console.log(data);
   // Obsługa danych otrzymanych od serwera
   switch(data.type) {
-    case "1":
+    case "snakeSpowned":
+      changeScene("game");
       break;
   }
-  mydiv.textContent = data;
 };
 
 socket.onerror = (error) => {
