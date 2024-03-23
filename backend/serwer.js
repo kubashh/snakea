@@ -259,16 +259,15 @@ function isGoodColor(color) {
 
 
 function updateTopTen() {
-  let i = 0;
-  for(let snake of snakes) {
-    if(i >= 10) {
-      break;
+  for(let i = 0; i < 10; i++) {
+    if(snakes[i]) {
+      let snake = snakes[i];
+      topTen[i] = {
+        nick: "#" + (i + 1) + "   " + snake.nick,
+        score: snake.body.length,
+        color: snake.color
+      };
     }
-    topTen[i] = {
-      nick: "#" + (i + 1) + "   " + snake.nick,
-      score: snake.body.length,
-      color: snake.color
-    };
     i++;
   }
 }
@@ -296,6 +295,15 @@ function update() {
   
   for(let apple of apples) {
     board[apple.x][apple.y] = "yellow";
+  }
+
+  //sort
+  for(let i = 0; i < snakes.length; i++) {
+    for(let j = i + 1; j < snakes.length; j++) {
+      if(snakes[j].body.length > snakes[i].body.length) {
+        (i, j) = (j, i);
+      }
+    }
   }
   
   updateTopTen();
