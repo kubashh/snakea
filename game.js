@@ -1,5 +1,39 @@
 const adress = "https://psychic-doodle-jj5vwjj67qqrfq9x6-8888.app.github.dev";
 
+const sessionId = "abc123"; // Twój identyfikator sesji
+
+const socket = new WebSocket("wss://psychic-doodle-jj5vwjj67qqrfq9x6-8080.app.github.dev/");
+
+let mydiv = document.getElementById("mydiv");
+
+socket.onopen = (event) => {
+  console.log("WebSocket connection opened");
+  socket.send(JSON.stringify({
+    type: "id",
+    sessionId: sessionId
+  }));
+};
+
+socket.onmessage = (event) => {
+  const data = JSON.parse(event.data);
+  // Obsługa danych otrzymanych od serwera
+  switch(data.type) {
+    case "1":
+      break;
+  }
+  mydiv.textContent = data;
+};
+
+socket.onerror = (error) => {
+  console.error("Error with WebSocket: ", error);
+};
+
+setInterval(() => {
+  socket.send(JSON.stringify({ type: "test" }));
+}, 1000);
+
+
+
 const canvas = document.createElement('canvas');
 canvas.width = 1920;
 canvas.height = 1080;
