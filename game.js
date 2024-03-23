@@ -1,7 +1,5 @@
 const adress = "https://psychic-doodle-jj5vwjj67qqrfq9x6-8888.app.github.dev";
 
-const sessionId = "abc123"; // Twój identyfikator sesji
-
 const socket = new WebSocket("wss://psychic-doodle-jj5vwjj67qqrfq9x6-8080.app.github.dev/");
 
 let mydiv = document.getElementById("mydiv");
@@ -10,7 +8,7 @@ socket.onopen = (event) => {
   console.log("WebSocket connection opened");
   socket.send(JSON.stringify({
     type: "id",
-    sessionId: sessionId
+    nick: nick
   }));
 };
 
