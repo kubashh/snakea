@@ -301,7 +301,9 @@ function update() {
   for(let i = 0; i < snakes.length; i++) {
     for(let j = i + 1; j < snakes.length; j++) {
       if(snakes[j].body.length > snakes[i].body.length) {
-        (snakes[i], snakes[j]) = (snakes[j], snakes[i]);
+        let temp = snakes[i];
+        snakes[i] = snakes[j];
+        snakes[j] = temp;
       }
     }
   }
