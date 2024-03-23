@@ -1,5 +1,5 @@
-const adress = "https://psychic-doodle-jj5vwjj67qqrfq9x6-8888.app.github.dev";
-const socket = new WebSocket("wss://psychic-doodle-jj5vwjj67qqrfq9x6-8880.app.github.dev/");
+const adress = "wss://psychic-doodle-jj5vwjj67qqrfq9x6-8880.app.github.dev/"; //"https://psychic-doodle-jj5vwjj67qqrfq9x6-8888.app.github.dev";
+const socket = new WebSocket(adress);
 
 const canvas = document.createElement('canvas');
 canvas.width = 1920;
