@@ -1,8 +1,29 @@
 const adress = "https://psychic-doodle-jj5vwjj67qqrfq9x6-8888.app.github.dev";
-
 const socket = new WebSocket("wss://psychic-doodle-jj5vwjj67qqrfq9x6-8880.app.github.dev/");
 
+const canvas = document.createElement('canvas');
+canvas.width = 1920;
+canvas.height = 1080;
+
+const ctx = canvas.getContext('2d');
+ctx.fillStyle = "black";
+ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
+
+const pixelSize = 40;
+let connected = false;
+
+let renderLoop = setInterval(() => { }, 1000);
+clearInterval(renderLoop);
+
+let nick = "", color = "";
+let inGame = false;
+
+changeScene("menu");
+
+
+
 socket.onopen = (event) => {
+  connected = true;
   console.log("WebSocket connection opened");
 };
 
@@ -53,31 +74,27 @@ socket.onerror = (error) => {
 
 
 
-const canvas = document.createElement('canvas');
-canvas.width = 1920;
-canvas.height = 1080;
-
-const ctx = canvas.getContext('2d');
-ctx.fillStyle = "black";
-ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
-
-const pixelSize = 40;
-let connected = true;
-
-let renderLoop = setInterval(() => { }, 1000);
-clearInterval(renderLoop);
-
-let nick = "", color = "";
-let inGame = false;
-
-changeScene("menu");
-
 // Inicjacja pełnego ekranu w odpowiedzi na kliknięcie
 document.addEventListener("click", () => {
   if(document.documentElement.requestFullscreen) {
     document.documentElement.requestFullscreen();
   } else {
     console.error("pierdole");
+  }
+});
+
+document.addEventListener('keydown', (event) => {
+  if(inGame) {
+    let a = event.key;
+    if(a == "ArrowUp" || a == "w" || a == "W") {
+      changeDirection(0);
+    } else if(a == "ArrowLeft" || a == "a" || a == "A") {
+      changeDirection(1);
+    } else if(a == "ArrowDown" || a == "s" || a == "S") {
+      changeDirection(2);
+    } else if(a == "ArrowRight" || a == "d" || a == "D") {
+      changeDirection(3);
+    }
   }
 });
 
@@ -219,21 +236,6 @@ function startNewGame() {
   newSnake();
   let maxfps = 60;
   setInterval(render, 1000 / maxfps);
-
-  document.addEventListener('keydown', (event) => {
-    if(inGame) {
-      let a = event.key;
-      if(a == "ArrowUp" || a == "w" || a == "W") {
-        changeDirection(0);
-      } else if(a == "ArrowLeft" || a == "a" || a == "A") {
-        changeDirection(1);
-      } else if(a == "ArrowDown" || a == "s" || a == "S") {
-        changeDirection(2);
-      } else if(a == "ArrowRight" || a == "d" || a == "D") {
-        changeDirection(3);
-      }
-    }
-  });
 }
 
 function reloadMessage() {
