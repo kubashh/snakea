@@ -74,7 +74,7 @@ const mapSize = 80;
 let board = [ [ "black" ] ];
 let snakes = [];
 let apples = [];
-let topTen = [];
+let topTen = [ "", "", "", "", "", "", "", "", "", "" ];
 
 
 
@@ -105,14 +105,14 @@ class Snake {
         break;
     }
     if(next.x < 0 || next.y < 0 || next.x >= mapSize || next.y >= mapSize) {
-      snakes.splice(snakes.indexOf(this), 1);
+      deleteSnake(this);
       return;
     }
     for(let snake of snakes) {
       if(snake.nick != this.nick) {
         for(let bodyElement of snake.body) {
           if(bodyElement.x == next.x && bodyElement.y == next.y) {
-            snakes.splice(snakes.indexOf(this), 1);
+            deleteSnake(this);
             return;
           }
         }
@@ -159,6 +159,15 @@ class Snake {
 }
 
 
+
+function deleteSnake(snake) {
+  for(let bodyElement in snake.body) {
+    if(bodyElement != snake.head() && chance(0.5)) {
+      apples.push(bodyElement);
+    }
+  }
+  snakes.splice(snakes.indexOf(snake), 1);
+}
 
 function generateApple() {
   if(apples.length < mapSize / 6) {
@@ -250,14 +259,16 @@ function isGoodColor(color) {
 
 
 function updateTopTen() {
-  topTen = [];
-  let i = 1;
+  let i = 0;
   for(let snake of snakes) {
-    topTen.push({
-      nick: "#" + i + "   " + snake.nick,
+    if(i >= 10) {
+      break;
+    }
+    topTen[i] = {
+      nick: "#" + (i + 1) + "   " + snake.nick,
       score: snake.body.length,
       color: snake.color
-    });
+    };
     i++;
   }
 }
