@@ -168,7 +168,7 @@ async function addMenu() {
   let message = document.createElement('div');
   message.id = "message";
   if(serwerWork) {
-    message.textContent = "Connect to serwer";
+    message.textContent = "Connected to serwer";
     message.style.color = "white";
   } else {
     message.textContent = "Connection error";
@@ -252,7 +252,7 @@ function reloadMessage() {
     let message = document.getElementById("message");
     if(message) {
       if(serwerWork) {
-        message.textContent = "Connect to serwer";
+        message.textContent = "Connected to serwer";
         message.style.color = "white";
       } else {
         message.textContent = "Connection error";
@@ -279,4 +279,4 @@ function checkConnection() {
   });
 }
 
-setInterval(checkConnection, 5000);
+setInterval(checkConnection, 4000);

@@ -161,7 +161,7 @@ class Snake {
 
 
 function deleteSnake(snake) {
-  for(let bodyElement in snake.body) {
+  for(let bodyElement of snake.body) {
     if(bodyElement != snake.head() && chance(0.5)) {
       apples.push(bodyElement);
     }
