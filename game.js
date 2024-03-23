@@ -105,8 +105,7 @@ function draw() {
     return response.json();
   })
   .then(rjson => {
-    if(rjson.head == null) {
-      addMenu();
+    if(!rjson) {
       return;
     }
 
@@ -132,8 +131,8 @@ function draw() {
     }
     
     let a = 25;
-    let y = 20 + a;
-    renderText("Active players: " + rjson.snakesCount, 20, y, a);
+    let y = 10 + a;
+    renderText("Active players: " + rjson.snakesCount, 10, y, a);
 
     for(let top of rjson.topTen) {
       renderText(top.nick, w - 340, y, a, top.color);
