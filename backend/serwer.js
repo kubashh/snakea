@@ -267,8 +267,13 @@ function updateTopTen() {
         score: snake.body.length,
         color: snake.color
       };
+    } else {
+      topTen[i] = {
+        nick: "",
+        score: "",
+        color: ""
+      };
     }
-    i++;
   }
 }
 
@@ -298,7 +303,7 @@ function update() {
   }
 
   //sort
-  for(let i = 0; i < snakes.length; i++) {
+  for(let i = 0; i < snakes.length - 1; i++) {
     for(let j = i + 1; j < snakes.length; j++) {
       if(snakes[j].body.length > snakes[i].body.length) {
         let temp = snakes[i];
