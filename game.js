@@ -303,7 +303,7 @@ function startNewGame() {
   changeScene("game");
   newSnake();
   let maxfps = 60;
-  renderLoop = setInterval(render, 1000 / maxfps);
+  setInterval(render, 1000 / maxfps);
 
   document.addEventListener('keydown', (event) => {
     if(inGame) {
