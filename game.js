@@ -89,16 +89,6 @@ function newSnake() {
     nick: nick,
     color: color
   }));
-  /*fetch(adress + "/newSnake", {
-    method: "POST",
-    body: JSON.stringify({
-      nick: nick,
-      color: color
-    }),
-    headers: {
-      "Content-Type": "application/json"
-    }
-  });*/
 }
 
 
@@ -108,16 +98,6 @@ function changeDirection(direction) {
     nick: nick,
     direction: direction
   }));
-  /*fetch(adress + "/direction", {
-    method: "POST",
-    body: JSON.stringify({
-      nick: nick,
-      direction: direction
-    }),
-    headers: {
-      "Content-Type": "application/json"
-    }
-  });*/
 }
 
 
@@ -155,60 +135,6 @@ function draw() {
     type: "board",
     nick: nick
   }));
-  /*fetch(adress + "/board", {
-    method: "POST",
-    body: JSON.stringify({
-      nick: nick
-    }),
-    headers: {
-      "Content-Type": "application/json"
-    }
-  })
-  .then(response => {
-    if(!response.ok) {
-      throw new Error(`Błąd zapytania: ${response.status} ${response.statusText}`);
-    }
-    return response.json();
-  })
-  .then(rjson => {
-    if(!rjson) {
-      return;
-    }
-
-    let board = rjson.board;
-    let xa = Math.round(-rjson.head.x * pixelSize + window.innerWidth / 2), ya = Math.round(-rjson.head.y * pixelSize + window.innerHeight / 2);
-
-    let w = window.innerWidth, h = window.innerHeight;
-    drawBox(0, 0, w, h, "#008");
-    for(let i = 0; i < board.length; i++) {
-      for(let j = 0; j < board[i].length; j++) {
-        let x = i * pixelSize + xa, y = j * pixelSize + ya;
-        if(0 < x < h && 0 < y < w) {
-          drawBox(x, y, pixelSize, pixelSize, board[i][j]);
-        }
-      }
-    }
-
-    for(let snake of rjson.snakes) {
-      let x = xa + (snake.body[snake.body.length - 1].x - 0.5) * pixelSize, y = ya + (snake.body[snake.body.length - 1].y - 0.5) * pixelSize;
-      if(0 < x < h && 0 < y < w) {
-        renderText(snake.nick, x, y);
-      }
-    }
-    
-    let a = 25;
-    let y = 10 + a;
-    renderText("Active players: " + rjson.snakesCount, 10, y, a);
-
-    for(let top of rjson.topTen) {
-      renderText(top.nick, w - 340, y, a, top.color);
-      renderText(top.score, w - 60, y, a, top.color);
-      y += a;
-    }
-  })
-  .catch(error => {
-    console.error("Błąd podczas wykonywania żądania:", error);
-  });*/
 }
 
 function render() {
@@ -326,22 +252,3 @@ function reloadMessage() {
     }
   }
 }
-
-/*function checkConnection() {
-  fetch(adress, { method: "HEAD" })
-  .then(response => {
-    if(response.ok) {
-      connected = true; // Połączenie udane
-    } else {
-      connected = false; // Połączenie nieudane
-    }
-    reloadMessage();
-  })
-  .catch(error => {
-    connected = false; // Błąd połączenia
-    reloadMessage();
-    console.error("Wystąpił błąd: ", error);
-  });
-}*/
-
-//setInterval(checkConnection, 4000);
