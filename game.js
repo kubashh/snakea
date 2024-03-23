@@ -18,6 +18,38 @@ socket.onmessage = (event) => {
     case "snakeSpowned":
       changeScene("game");
       break;
+    case "board":
+      let board = data.board;
+      let xa = Math.round(-data.head.x * pixelSize + window.innerWidth / 2), ya = Math.round(-data.head.y * pixelSize + window.innerHeight / 2);
+
+      let w = window.innerWidth, h = window.innerHeight;
+      drawBox(0, 0, w, h, "#008");
+      for(let i = 0; i < board.length; i++) {
+        for(let j = 0; j < board[i].length; j++) {
+          let x = i * pixelSize + xa, y = j * pixelSize + ya;
+          if(0 < x < h && 0 < y < w) {
+            drawBox(x, y, pixelSize, pixelSize, board[i][j]);
+          }
+        }
+      }
+
+      for(let snake of data.snakes) {
+        let x = xa + (snake.body[snake.body.length - 1].x - 0.5) * pixelSize, y = ya + (snake.body[snake.body.length - 1].y - 0.5) * pixelSize;
+        if(0 < x < h && 0 < y < w) {
+          renderText(snake.nick, x, y);
+        }
+      }
+      
+      let a = 25;
+      let y = 10 + a;
+      renderText("Active players: " + data.snakesCount, 10, y, a);
+
+      for(let top of data.topTen) {
+        renderText(top.nick, w - 340, y, a, top.color);
+        renderText(top.score, w - 60, y, a, top.color);
+        y += a;
+      }
+      break;
   }
 };
 
@@ -130,6 +162,10 @@ function addCanvas() {
 }
 
 function draw() {
+  socket.send(JSON.stringify({
+    type: "board",
+    nick: nick
+  }));
   /*fetch(adress + "/board", {
     method: "POST",
     body: JSON.stringify({
