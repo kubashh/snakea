@@ -40,7 +40,7 @@ ctx.fillStyle = "black";
 ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
 
 const pixelSize = 40;
-let serwerWork = false;
+let serwerWork = true;
 checkConnection();
 
 let renderLoop = setInterval(() => { }, 1000);
