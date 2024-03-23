@@ -1,3 +1,25 @@
+const WebSocket = require('ws');
+
+const wss = new WebSocket.Server({ port: 8888 });
+
+wss.on("connection", function connection(ws) {
+  ws.on("message", function incoming(message) {
+    let data = JSON.parse(message);
+    switch(data.type) {
+      case "id":
+        break;
+      case "test":
+        ws.send(JSON.stringify({ type: "odpowiedz" }));
+        break;
+    }
+
+    console.log(data);
+  });
+});
+
+
+
+
 const express = require("express");
 const app = express();
 
