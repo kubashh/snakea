@@ -19,23 +19,27 @@ let nick = "", color = "";
 let inGame = false;
 let maxfps = 60;
 
-changeScene("menu");
+addMenu();
 
 
 
 socket.onopen = (event) => {
   console.log("WebSocket connection opened");
   connected = true;
-  changeScene("menu");
+  addMenu();
 };
 
 socket.onmessage = (event) => {
   const data = JSON.parse(event.data);
   switch(data.type) {
     case "snakeSpowned":
-      changeScene("game");
+      addGame();
       break;
     case "board":
+      if(data.head == null) {
+        addMenu();
+        return;
+      }
       let board = data.board;
       let xa = Math.round(-data.head.x * pixelSize + window.innerWidth / 2), ya = Math.round(-data.head.y * pixelSize + window.innerHeight / 2);
 
@@ -128,30 +132,15 @@ function changeDirection(direction) {
 
 
 
-function changeScene(place) {
-  clear();
-
-  switch(place) {
-    case "menu":
-      inGame = false;
-      addMenu();
-      break;
-    case "game":
-      inGame = true;
-      addCanvas();
-      break;
-  }
-}
-
 function clear() {
-  clearInterval(renderLoop);
   let body = document.body;
   while(body.firstChild) {
     body.removeChild(body.firstChild);
   }
 }
 
-function addCanvas() {
+function addGame() {
+  inGame = true;
   clear();
   document.body.appendChild(canvas);
 }
@@ -180,6 +169,7 @@ function renderText(s, x, y, fontSize = 30, color = "white") {
 }
 
 async function addMenu() {
+  inGame = false;
   clear();
 
   let message = document.createElement('div');
