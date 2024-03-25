@@ -146,7 +146,6 @@ function changeDirection(direction) {
 }
 
 
-
 function clear() {
   let body = document.body;
   while(body.firstChild) {
@@ -160,15 +159,11 @@ function addGame() {
   document.body.appendChild(canvas);
 }
 
-function draw() {
+function render() {
   socket.send(JSON.stringify({
     type: "board",
     nick: nick
   }));
-}
-
-function render() {
-  draw();
 }
 
 function drawBox(x, y, w, h, color = "white")  {
