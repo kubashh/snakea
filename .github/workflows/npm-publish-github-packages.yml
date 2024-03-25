@@ -28,5 +28,5 @@ jobs:
           node-version: 16
       - name: Install dependencies
         run: npm install
-      - name: Start backend server
-        run: node backend/serwer.js
+#      - name: Start backend server
+#        run: node backend/serwer.js

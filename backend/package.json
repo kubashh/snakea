@@ -1,4 +1,11 @@
 {
+  "name": "snakeonline",
+  "version": "1.0.0",
+  "description": "Snake Online",
+  "main": "serwer.js",
+  "scripts": {
+    "start": "node serwer.js"
+  },
   "dependencies": {
     "nodejs": "^0.0.0",
     "ws": "^8.16.0"
