@@ -86,12 +86,19 @@ function connectWebSocket() {
 }
 
 // Rozpocznij połączenie z WebSocket
-connectWebSocket();
 setInterval(() => {
   if(!connected) {
     connectWebSocket();
   }
 }, 1000);
+
+
+// Render loop
+setInterval(() => {
+  if(inGame) {
+    render();
+  }
+}, 1000 / maxfps);
 
 
 
@@ -118,13 +125,6 @@ document.addEventListener('keydown', (event) => {
     }
   }
 });
-
-
-setInterval(() => {
-  if(inGame) {
-    render();
-  }
-}, 1000 / maxfps);
 
 
 
