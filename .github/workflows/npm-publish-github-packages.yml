@@ -1,4 +1,4 @@
-name: Run Backend Server
+name: Run WebSocket Server
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  start-backend:
+  start-websocket-server:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -21,5 +21,5 @@ jobs:
         run: npm ci
         working-directory: backend
           
-#      - name: Start backend server
-#        run: node backend/serwer.js
+      - name: Start WebSocket server
+        run: node backend/serwer.js 8888
