@@ -79,6 +79,13 @@ function connectWebSocket() {
     // Spróbuj ponownie po upływie pewnego czasu
     setTimeout(connectWebSocket, 1000);
   };
+
+  socket.onclose = () => {
+    console.log("WebSocket connection closed");
+    connected = false;
+    // Spróbuj ponownie po utracie połączenia
+    setTimeout(connectWebSocket, 1000);
+  };
 }
 
 // Rozpocznij połączenie z WebSocket
