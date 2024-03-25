@@ -18,7 +18,7 @@ jobs:
           node-version: 16
       
       - name: Install dependencies
-        run: |
+        rudn: |
           cd backend
           npm install
           
