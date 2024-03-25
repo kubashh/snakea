@@ -1,6 +1,6 @@
 const WebSocket = require('ws');
 
-const wss = new WebSocket.Server({ port: 8880 });
+const wss = new WebSocket.Server({ port: 8888 });
 
 wss.on("connection", function connection(ws) {
   ws.on("message", function incoming(message) {
@@ -136,7 +136,7 @@ class Snake {
 
 function deleteSnake(snake) {
   for(let bodyElement of snake.body) {
-    if(bodyElement != snake.head() && chance(0.5)) {
+    if(bodyElement != snake.head() && chance(0.4)) {
       apples.push(bodyElement);
     }
   }

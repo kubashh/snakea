@@ -1,5 +1,5 @@
-const adress = "wss://psychic-doodle-jj5vwjj67qqrfq9x6-8880.app.github.dev/"; //"https://psychic-doodle-jj5vwjj67qqrfq9x6-8888.app.github.dev";
-const socket = new WebSocket(adress);
+const adress = "wss://crispy-winner-4j759jj4v6gp3jg65-8888.app.github.dev/";
+let socket = new WebSocket(adress);
 
 const canvas = document.createElement('canvas');
 canvas.width = 1920;
@@ -77,6 +77,9 @@ socket.onmessage = (event) => {
 socket.onerror = (error) => {
   console.error("Error with WebSocket: ", error);
   connected = false;
+  setTimeout(() => {
+    socket = new WebSocket(adress);
+  }, 1000);
 };
 
 
