@@ -20,6 +20,7 @@ addMenu();
 
 
 function connectWebSocket() {
+  addMenu();
   socket = new WebSocket(address);
 
   socket.onopen = (event) => {
@@ -185,8 +186,12 @@ async function addMenu() {
   inGame = false;
   clear();
 
-  let message = document.createElement('div');
-  message.id = "message";
+  let message = document.getElementById("message");
+  if(!message) {
+    message = document.createElement('div');
+    message.id = "message";
+  }
+
   if(connected) {
     message.textContent = "Connected to serwer";
     message.style.color = "white";
@@ -196,35 +201,38 @@ async function addMenu() {
   }
   document.body.appendChild(message);
 
-  let div = document.createElement('form');
-  div.id = "menuForm";
+  let form = document.getElementById("menuForm");
+  if(!form) {
+    form = document.createElement('form');
+    form.id = "menuForm";
 
-  let input = document.createElement('input');
-  input.type = "text";
-  input.id = "nick";
-  input.value = nick;
-  input.minlength = 3;
-  input.placeholder = "Enter your nick";
-  div.appendChild(input);
+    let input = document.createElement('input');
+    input.type = "text";
+    input.id = "nick";
+    input.value = nick;
+    input.minlength = 3;
+    input.placeholder = "Enter your nick";
+    form.appendChild(input);
 
-  input = document.createElement('input');
-  input.type = "text";
-  input.id = "color";
-  input.value = color;
-  input.minlength = 3;
-  input.placeholder = "Enter your color";
-  div.appendChild(input);
-  
-  let button = document.createElement('div');
-  button.textContent = "Start game";
-  button.id = "menuButton";
-  button.type = "submit";
-  button.addEventListener("click", () => {
-    canStartGame();
-  })
-  div.appendChild(button);
+    input = document.createElement('input');
+    input.type = "text";
+    input.id = "color";
+    input.value = color;
+    input.minlength = 3;
+    input.placeholder = "Enter your color";
+    form.appendChild(input);
+    
+    let button = document.createElement('div');
+    button.textContent = "Start game";
+    button.id = "menuButton";
+    button.type = "submit";
+    button.addEventListener("click", () => {
+      canStartGame();
+    })
+    form.appendChild(button);
 
-  document.body.appendChild(div);
+    document.body.appendChild(form);
+  }
 }
 
 function canStartGame() {
@@ -240,22 +248,5 @@ function canStartGame() {
       return;
     }*/
     newSnake();
-  }
-}
-
-function reloadMessage() {
-  if(!connected) {
-    addMenu();
-  } else if(!inGame) {
-    let message = document.getElementById("message");
-    if(message) {
-      if(connected) {
-        message.textContent = "Connected to serwer";
-        message.style.color = "white";
-      } else {
-        message.textContent = "Connection error";
-        message.style.color = "red";
-      }
-    }
   }
 }
