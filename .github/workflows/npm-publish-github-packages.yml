@@ -18,8 +18,10 @@ jobs:
           node-version: 16
       
       - name: Install dependencies
-        run: npm ci
-      
+        run: |
+          cd backend
+          npm install
+          
       - name: Start backend server
         run: |
           cd backend
