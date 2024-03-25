@@ -1,32 +1,32 @@
-name: Node.js Package
-
-on:
-  push:
-    branches:
-      - main # lub nazwa_twojej_głównej_gałęzi
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16
-      - run: npm install
-      - run: npm test
-
-  start-backend:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
-      - name: Install dependencies
-        run: npm install
+#name: Node.js Package
+#
+#on:
+#  push:
+#    branches:
+#      - main # lub nazwa_twojej_głównej_gałęzi
+#
+#jobs:
+#  build:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@v3
+#      - uses: actions/setup-node@v3
+#        with:
+#          node-version: 16
+#      - run: npm install
+#      - run: npm test
+#
+#  start-backend:
+#    runs-on: ubuntu-latest
+#    needs: build
+#    steps:
+#      - name: Checkout code
+#        uses: actions/checkout@v3
+#      - name: Setup Node.js
+#        uses: actions/setup-node@v3
+#        with:
+#          node-version: 16
+#      - name: Install dependencies
+#        run: npm install
 #      - name: Start backend server
 #        run: node backend/serwer.js
