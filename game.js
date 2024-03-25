@@ -1,5 +1,5 @@
-const adress = "wss://crispy-winner-4j759jj4v6gp3jg65-8888.app.github.dev/";
-let socket = new WebSocket(adress);
+const address = "wss://crispy-winner-4j759jj4v6gp3jg65-8888.app.github.dev/";
+let socket = null;
 
 const canvas = document.createElement('canvas');
 canvas.width = 1920;
@@ -12,9 +12,6 @@ ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
 const pixelSize = 40;
 let connected = false;
 
-let renderLoop = setInterval(() => { }, 1000);
-clearInterval(renderLoop);
-
 let nick = "", color = "";
 let inGame = false;
 let maxfps = 60;
@@ -22,65 +19,70 @@ let maxfps = 60;
 addMenu();
 
 
+function connectWebSocket() {
+  socket = new WebSocket(address);
 
-socket.onopen = (event) => {
-  console.log("WebSocket connection opened");
-  connected = true;
-  addMenu();
-};
+  socket.onopen = (event) => {
+    console.log("WebSocket connection opened");
+    connected = true;
+    addMenu();
+  };
 
-socket.onmessage = (event) => {
-  const data = JSON.parse(event.data);
-  switch(data.type) {
-    case "snakeSpowned":
-      addGame();
-      break;
-    case "board":
-      if(data.head == null) {
-        addMenu();
-        return;
-      }
-      let board = data.board;
-      let xa = Math.round(-data.head.x * pixelSize + window.innerWidth / 2), ya = Math.round(-data.head.y * pixelSize + window.innerHeight / 2);
-
-      let w = window.innerWidth, h = window.innerHeight;
-      drawBox(0, 0, w, h, "#008");
-      for(let i = 0; i < board.length; i++) {
-        for(let j = 0; j < board[i].length; j++) {
-          let x = i * pixelSize + xa, y = j * pixelSize + ya;
-          if(0 < x < h && 0 < y < w) {
-            drawBox(x, y, pixelSize, pixelSize, board[i][j]);
+  socket.onmessage = (event) => {
+    const data = JSON.parse(event.data);
+    switch(data.type) {
+      case "snakeSpowned":
+        addGame();
+        break;
+      case "board":
+        if(data.head == null) {
+          addMenu();
+          return;
+        }
+        let board = data.board;
+        let xa = Math.round(-data.head.x * pixelSize + window.innerWidth / 2), ya = Math.round(-data.head.y * pixelSize + window.innerHeight / 2);
+  
+        let w = window.innerWidth, h = window.innerHeight;
+        drawBox(0, 0, w, h, "#008");
+        for(let i = 0; i < board.length; i++) {
+          for(let j = 0; j < board[i].length; j++) {
+            let x = i * pixelSize + xa, y = j * pixelSize + ya;
+            if(0 < x < h && 0 < y < w) {
+              drawBox(x, y, pixelSize, pixelSize, board[i][j]);
+            }
           }
         }
-      }
-
-      for(let snake of data.snakes) {
-        let x = xa + (snake.body[snake.body.length - 1].x - 0.5) * pixelSize, y = ya + (snake.body[snake.body.length - 1].y - 0.5) * pixelSize;
-        if(0 < x < h && 0 < y < w) {
-          renderText(snake.nick, x, y);
+  
+        for(let snake of data.snakes) {
+          let x = xa + (snake.body[snake.body.length - 1].x - 0.5) * pixelSize, y = ya + (snake.body[snake.body.length - 1].y - 0.5) * pixelSize;
+          if(0 < x < h && 0 < y < w) {
+            renderText(snake.nick, x, y);
+          }
         }
-      }
-      
-      let a = 25;
-      let y = 10 + a;
-      renderText("Active players: " + data.snakesCount, 10, y, a);
+        
+        let a = 25;
+        let y = 10 + a;
+        renderText("Active players: " + data.snakesCount, 10, y, a);
+  
+        for(let top of data.topTen) {
+          renderText(top.nick, w - 340, y, a, top.color);
+          renderText(top.score, w - 60, y, a, top.color);
+          y += a;
+        }
+        break;
+    }
+  };
 
-      for(let top of data.topTen) {
-        renderText(top.nick, w - 340, y, a, top.color);
-        renderText(top.score, w - 60, y, a, top.color);
-        y += a;
-      }
-      break;
-  }
-};
+  socket.onerror = (error) => {
+    console.error("Error with WebSocket: ", error);
+    connected = false;
+    // Spróbuj ponownie po upływie pewnego czasu
+    setTimeout(connectWebSocket, 1000);
+  };
+}
 
-socket.onerror = (error) => {
-  console.error("Error with WebSocket: ", error);
-  connected = false;
-  setTimeout(() => {
-    socket = new WebSocket(adress);
-  }, 1000);
-};
+// Rozpocznij połączenie z WebSocket
+connectWebSocket();
 
 
 
