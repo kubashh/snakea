@@ -62,7 +62,7 @@ class Snake {
     snakes.push(this)
   }
 
-  move = () => {
+  move() {
     let next = { x: this.body[this.body.length - 1].x, y: this.body[this.body.length - 1].y }
     switch(this.direction) {
       case 0:
@@ -102,11 +102,11 @@ class Snake {
     this.body.shift()
   }
 
-  head = () => {
+  head() {
     return this.body[this.body.length - 1]
   }
 
-  changeDirection = (a) => {
+  changeDirection(a) {
     switch(a) {
       case 0:
         if(this.body[this.body.length - 2].y != this.head().y - 1) {
