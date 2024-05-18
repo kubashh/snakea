@@ -102,18 +102,6 @@ setInterval(() => {
 
 
 
-// Inicjacja pełnego ekranu w odpowiedzi na kliknięcie
-document.addEventListener("click", () => {
-  if(document.documentElement.requestFullscreen) {
-    document.documentElement.requestFullscreen()
-    canvas.width = window.innerWidth
-    canvas.height = window.innerHeight
-  } else {
-    console.error("reload side")
-    location.reload()
-  }
-})
-
 document.addEventListener('keydown', (event) => {
   if(inGame) {
     let a = event.key
