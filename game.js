@@ -1,4 +1,4 @@
-const address = "wss://crispy-winner-4j759jj4v6gp3jg65-8888.app.github.dev/"
+const address = "wss://snake-sigma-weld.vercel.app/snake.html/8888"
 let socket = null
 
 const canvas = document.createElement('canvas')
