@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.js": "/static/js/main.e83adf74.js",
-    "index.html": "/index.html",
-    "main.e83adf74.js.map": "/static/js/main.e83adf74.js.map"
+    "main.js": "/snake/static/js/main.e83adf74.js",
+    "index.html": "/snake/index.html",
+    "main.e83adf74.js.map": "/snake/static/js/main.e83adf74.js.map"
   },
   "entrypoints": [
     "static/js/main.e83adf74.js"
