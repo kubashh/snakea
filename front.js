@@ -224,14 +224,7 @@ function canStartGame() {
   if(connected) {
     nick = document.getElementById("nick").value
     color = document.getElementById("color").value
-    /*if(backend.getSnakeByNick(nick)) {
-      alert("Color is not free")
-      return
-    }
-    if(!backend.isColorFree(color)) {
-      alert("Color is not free")
-      return
-    }*/
+
     newSnake()
   }
 }

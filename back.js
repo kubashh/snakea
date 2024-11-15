@@ -1,6 +1,6 @@
 import { Server } from "ws"
 
-const port = 8888; // process.env.PORT || 8888;
+const port = 8888
 
 const wss = new Server({ port: port })
 
