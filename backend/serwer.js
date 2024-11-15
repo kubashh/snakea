@@ -1,11 +1,11 @@
-const WebSocket = require('ws')
+import { Server } from "ws"
 
-port = 8888; // process.env.PORT || 8888;
+const port = 8888; // process.env.PORT || 8888;
 
-const wss = new WebSocket.Server({ port: port })
+const wss = new Server({ port: port })
 
-wss.on("connection", function connection(ws) {
-  ws.on("message", function incoming(message) {
+wss.on("connection", (ws) => {
+  ws.on("message", (message) => {
     let data = JSON.parse(message)
     switch(data.type) {
       case "newSnake":
@@ -136,7 +136,7 @@ class Snake {
 
 
 
-function deleteSnake(snake) {
+const deleteSnake = (snake) => {
   for(let bodyElement of snake.body) {
     if(bodyElement != snake.head() && chance(0.4)) {
       apples.push(bodyElement)
@@ -145,20 +145,20 @@ function deleteSnake(snake) {
   snakes.splice(snakes.indexOf(snake), 1)
 }
 
-function generateApple() {
+const generateApple = () => {
   if(apples.length < mapSize / 6) {
     apples.push(freePos(3))
   }
 }
 
-function chance(a) {
+const chance = (a) => {
   if(Math.random() < a) {
     return true
   }
   return false
 }
 
-function getSnakeByNick(nick) {
+const getSnakeByNick = (nick) => {
   for(let snake of snakes) {
     if(snake.nick === nick) {
       return snake
@@ -167,18 +167,18 @@ function getSnakeByNick(nick) {
   return null
 }
 
-function changeDirection(nick, direction) {
+const changeDirection = (nick, direction) => {
   let snake = getSnakeByNick(nick)
   if(snake) {
     snake.changeDirection(direction)
   }
 }
 
-function randInt(a, b) {
+const randInt = (a, b) => {
   return Math.floor(a + Math.random() * Math.floor(b - a))
 }
 
-function freePos(a = 0) {
+const freePos = (a = 0) => {
   let pos = { x: randInt(a, mapSize - a), y: randInt(a, mapSize - a) }
   
   let b = true
@@ -205,7 +205,7 @@ function freePos(a = 0) {
 
 
 
-function isGoodNewSnakeData(nick, color) {
+const isGoodNewSnakeData = (nick, color) => {
   if(!isGoodNick(nick) || !isGoodColor(color)) {
     return false
   }
@@ -213,7 +213,7 @@ function isGoodNewSnakeData(nick, color) {
   return true
 }
 
-function isGoodNick(nick) {
+const isGoodNick = (nick) => {
   for(let snake of snakes) {
     if(snake.nick == nick) {
       return false
@@ -223,7 +223,7 @@ function isGoodNick(nick) {
   return true
 }
 
-function isGoodColor(color) {
+const isGoodColor = (color) => {
   for(let snake of snakes) {
     if(snake.color == color) {
       return false
@@ -234,7 +234,7 @@ function isGoodColor(color) {
 }
 
 
-function updateTopTen() {
+const updateTopTen = () => {
   for(let i = 0; i < 10; i++) {
     if(snakes[i]) {
       let snake = snakes[i]
@@ -254,7 +254,7 @@ function updateTopTen() {
 }
 
 
-function update() {
+const update = () => {
   for(let snake of snakes) {
     snake.move()
   }
